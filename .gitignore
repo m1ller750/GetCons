@@ -1,0 +1,14 @@
+# Dependencies and build output
+node_modules/
+dist/
+coverage/
+
+# Secrets: only the example file is committed
+.env
+.env.*
+!.env.example
+
+# Local tooling and previews
+*.log
+.DS_Store
+pitch-deck/preview/

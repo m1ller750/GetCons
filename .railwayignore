@@ -1,0 +1,11 @@
+# Files `railway up` must never upload (secrets, build output, local tooling).
+node_modules
+**/node_modules
+**/dist
+.env
+.env.*
+!.env.example
+.git
+pitch-deck
+docs
+*.log

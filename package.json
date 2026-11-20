@@ -1,0 +1,30 @@
+{
+  "name": "getcons",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GetCons - personalized Gemini-powered AI consultants for Telegram",
+  "license": "UNLICENSED",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,magenta \"npm run dev --workspace server\" \"npm run dev --workspace web\"",
+    "dev:server": "npm run dev --workspace server",
+    "dev:web": "npm run dev --workspace web",
+    "build": "npm run build --workspace web && npm run build --workspace server",
+    "start": "npm run start --workspace server",
+    "test": "npm run test --workspace server",
+    "test:integration": "npm run test:integration --workspace server",
+    "typecheck": "npm run typecheck --workspace server && npm run typecheck --workspace web",
+    "deck:pdf": "node pitch-deck/render.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "playwright-core": "^1.64.1",
+    "railway": "^3.16.0"
+  }
+}

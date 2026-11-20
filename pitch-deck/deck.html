@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>GetCons - Pitch Deck</title>
+<style>
+  @font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+  @font-face { font-family: 'Inter'; src: url('assets/fonts/inter-latin-ext-wght-normal.woff2') format('woff2'); font-weight: 100 900; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: 'Inter'; src: url('assets/fonts/inter-cyrillic-wght-normal.woff2') format('woff2'); font-weight: 100 900; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+
+  @page { size: 1920px 1080px; margin: 0; }
+  /* Same palette as the web app: ink for structure, paper for the page, one calm violet for accents. */
+  :root {
+    --night: #06030d; --navy: #17181c; --ink: #0f172a; --body: #334155; --muted: #64748b; --faint: #94a3b8;
+    --line: #e4e4df; --bg: #f5f5f3; --card: #ffffff;
+    --brand: #5a40c4; --brand-50: #f3f1fc; --brand-100: #e7e2fa; --brand-200: #cfc5f4; --brand-300: #ae9feb; --brand-500: #6d55d0;
+    --solid: #17181c; --tg: #2aabee;
+    --green: #10b981; --amber: #f59e0b; --rose: #f43f5e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #2a2b30; }
+  body { font-family: 'Inter', 'Segoe UI', sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; font-feature-settings: 'cv11', 'ss01'; }
+  .slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--bg); page-break-after: always; break-after: page; padding: 96px 120px 120px; display: flex; flex-direction: column; }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .dark { background: var(--night); color: #fff; }
+  .chrome { position: absolute; left: 120px; right: 120px; bottom: 44px; display: flex; justify-content: space-between; font-size: 18px; color: var(--faint); letter-spacing: .02em; }
+  .dark .chrome { color: rgba(255,255,255,.45); }
+  .kicker { display: inline-flex; align-items: center; gap: 12px; font-size: 20px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-bottom: 22px; }
+  .kicker::before { content: ''; width: 36px; height: 4px; border-radius: 4px; background: var(--brand); }
+  .dark .kicker { color: var(--brand-200); }
+  .dark .kicker::before { background: var(--brand-200); }
+  h1 { font-size: 92px; line-height: 1.02; letter-spacing: -0.035em; font-weight: 750; }
+  h2 { font-size: 64px; line-height: 1.06; letter-spacing: -0.03em; font-weight: 720; max-width: 1500px; }
+  h3 { font-size: 30px; line-height: 1.2; letter-spacing: -0.01em; font-weight: 680; }
+  p.lead { font-size: 30px; line-height: 1.45; color: var(--body); max-width: 1400px; margin-top: 24px; }
+  .dark p.lead { color: rgba(255,255,255,.72); }
+  .accent { color: var(--brand); }
+  .dark .accent { color: rgba(255,255,255,.56); }
+  .row { display: flex; gap: 32px; }
+  .grow { flex: 1; min-width: 0; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 40px; box-shadow: 0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.12); }
+  .card p { font-size: 23px; line-height: 1.5; color: var(--body); margin-top: 14px; }
+  .icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; background: var(--brand-50); color: var(--brand); margin-bottom: 26px; }
+  .icon svg { width: 32px; height: 32px; }
+  .icon.solid { background: var(--solid); color: #fff; }
+  .icon.on-ink { background: rgba(255,255,255,.1); color: #fff; }
+  .icon.amber { background: #fef3c7; color: #b45309; } .icon.green { background: #d1fae5; color: #047857; } .icon.rose { background: #ffe4e6; color: #be123c; } .icon.sky { background: #e0f2fe; color: #0369a1; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; border-radius: 999px; font-size: 20px; font-weight: 600; background: var(--brand-50); color: var(--brand); }
+  .dark .pill { background: rgba(255,255,255,.07); color: rgba(255,255,255,.85); border: 1px solid rgba(255,255,255,.12); }
+  .chan { flex: none; width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #fff; }
+  .chan svg { width: 30px; height: 30px; }
+  .chan.wa { background: #25d366; } .chan.tg { background: var(--tg); } .chan.web { background: var(--solid); }
+  .pill.contact { font-size: 28px; padding: 18px 32px; gap: 14px; }
+  .pill.contact svg { width: 28px; height: 28px; }
+  .footnote { position: absolute; left: 120px; right: 420px; bottom: 76px; font-size: 15px; line-height: 1.4; color: var(--faint); }
+  .dark .footnote { color: rgba(255,255,255,.4); }
+  .browser { border-radius: 22px; overflow: hidden; background: #fff; box-shadow: 0 40px 80px -30px rgba(15,23,42,.4), 0 0 0 1px rgba(15,23,42,.08); }
+  .browser .bar { height: 40px; background: #efefec; display: flex; align-items: center; gap: 9px; padding: 0 18px; border-bottom: 1px solid var(--line); }
+  .browser .bar span { width: 13px; height: 13px; border-radius: 50%; background: #d4d4cf; }
+  .browser .bar em { margin-left: 18px; font-style: normal; font-size: 16px; color: var(--muted); background: #fff; border-radius: 8px; padding: 4px 16px; border: 1px solid var(--line); }
+  .browser img { display: block; width: 100%; }
+  .phone { border-radius: 54px; padding: 14px; background: var(--solid); box-shadow: 0 50px 90px -30px rgba(15,23,42,.55), inset 0 0 0 2px rgba(255,255,255,.08); }
+  .phone img { display: block; width: 100%; border-radius: 42px; }
+  .num { font-size: 76px; font-weight: 760; letter-spacing: -0.04em; line-height: 1; }
+  .label { font-size: 22px; color: var(--muted); margin-top: 12px; line-height: 1.4; }
+  .dark .label { color: rgba(255,255,255,.6); }
+  .check { color: var(--green); font-weight: 800; } .cross { color: #cbd5e1; font-weight: 800; } .part { color: var(--amber); font-weight: 800; }
+  .logo { display: inline-flex; align-items: center; gap: 22px; }
+  .logo svg { width: 88px; height: 88px; }
+  .logo b { font-size: 56px; font-weight: 760; letter-spacing: -0.03em; }
+  ul.clean { list-style: none; }
+  ul.clean li { position: relative; padding-left: 40px; font-size: 24px; line-height: 1.5; color: var(--body); margin-top: 14px; }
+  ul.clean li::before { content: ''; position: absolute; left: 4px; top: 13px; width: 14px; height: 14px; border-radius: 50%; background: var(--brand); }
+  .dark ul.clean li { color: rgba(255,255,255,.78); }
+  .inv ul.clean li { color: rgba(255,255,255,.85); }
+  .dark ul.clean li::before, .inv ul.clean li::before { background: var(--brand-300); }
+  table.cmp { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 22px; }
+  table.cmp th, table.cmp td { padding: 16px 20px; text-align: center; border-bottom: 1px solid var(--line); }
+  table.cmp th:first-child, table.cmp td:first-child { text-align: left; color: var(--body); }
+  table.cmp thead th { font-size: 19px; font-weight: 650; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  table.cmp .us { background: var(--brand-50); }
+  table.cmp thead .us { color: var(--brand); border-radius: 16px 16px 0 0; }
+  .callout { display: flex; gap: 22px; align-items: flex-start; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .callout:last-child { border-bottom: 0; }
+  .callout .n { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--solid); color: #fff; font-weight: 700; font-size: 22px; display: flex; align-items: center; justify-content: center; }
+  .callout h3 { font-size: 27px; }
+  .callout p { font-size: 21px; line-height: 1.45; color: var(--body); margin-top: 6px; }
+  .flow { display: flex; align-items: stretch; gap: 0; }
+  .flow .step { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 26px 24px; position: relative; }
+  .flow .step small { display: block; font-size: 16px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--brand); }
+  .flow .step b { display: block; font-size: 24px; margin-top: 10px; line-height: 1.25; }
+  .flow .step span { display: block; font-size: 18px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
+  .flow .arrow { flex: none; width: 46px; display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 34px; }
+  .price { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 34px 32px; display: flex; flex-direction: column; }
+  .price.hl { border: 2px solid var(--brand); box-shadow: 0 30px 60px -30px rgba(23,24,28,.35); position: relative; }
+  .price.hl::after { content: attr(data-badge); position: absolute; top: -18px; right: 26px; background: var(--brand); color: #fff; font-size: 16px; font-weight: 700; padding: 6px 16px; border-radius: 999px; }
+  .price .tier { font-size: 22px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+  .price .amt { font-size: 66px; font-weight: 760; letter-spacing: -0.04em; margin-top: 12px; }
+  .price .amt small { font-size: 24px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+  .price ul { list-style: none; margin-top: 20px; }
+  .price li { font-size: 20px; color: var(--body); padding: 8px 0; border-top: 1px dashed var(--line); }
+  .price.hl li:first-child { color: var(--ink); font-weight: 650; }
+  .bar-chart { display: flex; align-items: flex-end; gap: 56px; height: 470px; padding: 0 20px; border-bottom: 2px solid var(--line); }
+  .bar-chart .b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .bar-chart .b .v { font-size: 34px; font-weight: 760; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .bar-chart .b .col { width: 100%; border-radius: 18px 18px 6px 6px; background: var(--brand); }
+  .bar-x { display: flex; gap: 56px; padding: 18px 20px 0; }
+  .bar-x div { flex: 1; text-align: center; font-size: 22px; color: var(--muted); }
+  .bar-x b { display: block; color: var(--ink); font-size: 24px; }
+  .timeline { position: relative; display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px; margin-top: 70px; }
+  .timeline::before { content: ''; position: absolute; left: 0; right: 0; top: 23px; height: 4px; background: linear-gradient(90deg, var(--green) 0 16%, var(--line) 16% 100%); border-radius: 4px; }
+  .timeline .t { position: relative; padding-top: 68px; }
+  .timeline .t::before { content: ''; position: absolute; top: 10px; left: 0; width: 30px; height: 30px; border-radius: 50%; background: #fff; border: 5px solid var(--line); }
+  .timeline .t.done::before { border-color: var(--green); background: var(--green); }
+  .timeline .t.next::before { border-color: var(--brand); }
+  .timeline .t small { font-size: 18px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .timeline .t.done small { color: var(--green); } .timeline .t.next small { color: var(--brand); }
+  .timeline .t b { display: block; font-size: 24px; margin-top: 10px; line-height: 1.25; }
+  .timeline .t span { display: block; font-size: 18px; color: var(--muted); margin-top: 10px; line-height: 1.45; }
+  .gtm .card { padding: 32px 36px; }
+  .gtm .card p { font-size: 21px; }
+  .gtm .icon { margin-bottom: 18px; width: 56px; height: 56px; }
+  .trust .card { padding: 32px 36px; }
+  .trust .card p { font-size: 21px; margin-top: 10px; }
+  .trust .icon { margin-bottom: 18px; width: 56px; height: 56px; }
+  .assump { display: inline-block; font-size: 15px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #b45309; background: #fef3c7; padding: 4px 12px; border-radius: 8px; }
+  .ch { padding: 24px 30px; }
+  .ch h3 { font-size: 26px; }
+  .ch ul.clean li { font-size: 20px; margin-top: 8px; padding-left: 34px; }
+  .ch ul.clean li::before { top: 11px; width: 12px; height: 12px; }
+  /* The particle robot from the landing, faded into the cover's night background. */
+  .cover-robot { position: absolute; right: 30px; top: 30px; height: 1050px; -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 86%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 5%, #000 76%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 16%, #000 86%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 5%, #000 76%, transparent 100%); mask-composite: intersect; }
+</style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<section class="slide dark" style="padding-top:110px">
+  <img class="cover-robot" src="assets/screens/robot.png" alt="" />
+  <div class="logo" style="position:relative"><svg viewBox="0 0 64 64" data-logo></svg><b>GetCons</b></div>
+  <div style="position:relative;margin-top:110px;max-width:900px">
+    <span class="pill">Pre-seed · 2026</span>
+    <h1 style="margin-top:34px;font-size:76px">AI consultants and agents for every business <span class="accent">in WhatsApp, Telegram and on the web</span></h1>
+    <p class="lead" style="max-width:840px;font-size:28px">A consultant trained on your business answers customers 24/7. On the Pro plan it becomes an agent that takes orders, handles returns and keeps customers posted.</p>
+  </div>
+  <div class="chrome"><span>GetCons · Confidential</span><span>01</span></div>
+</section>
+
+<!-- 2. PROBLEM -->
+<section class="slide">
+  <div class="kicker">The problem</div>
+  <h2>Customers ask in WhatsApp and Telegram. Small businesses can’t keep up.</h2>
+  <div class="row" style="margin-top:64px">
+    <div class="card grow"><div class="icon amber"><i data-icon="clock"></i></div><h3>Customers expect answers now, at any hour</h3><p>Buyers message about price, stock and delivery in the evening and at weekends. A reply hours later often means the sale is gone.</p></div>
+    <div class="card grow"><div class="icon rose"><i data-icon="users"></i></div><h3>Small teams can’t staff chats 24/7</h3><p>Owners answer the same questions and retype orders from chats by hand. Night and weekend shifts cost more than most small businesses earn from chat.</p></div>
+    <div class="card grow"><div class="icon sky"><i data-icon="bot"></i></div><h3>Scripted bots frustrate people</h3><p>Button trees can’t understand “15 red roses to my office tomorrow before noon, card payment”. Customers give up, or ask for a human anyway.</p></div>
+  </div>
+  <div class="row" style="margin-top:36px;gap:0;background:#fff;border:1px solid var(--line);border-radius:28px;padding:36px 20px">
+    <div class="grow" style="text-align:center;border-right:1px solid var(--line)"><div class="num accent">3B+</div><div class="label">monthly WhatsApp users (Apr 2025)¹</div></div>
+    <div class="grow" style="text-align:center;border-right:1px solid var(--line)"><div class="num accent">1B+</div><div class="label">monthly Telegram users (Mar 2025)²</div></div>
+    <div class="grow" style="text-align:center"><div class="num accent">24.9%</div><div class="label">CAGR of conversational AI, 2024–2030³</div></div>
+  </div>
+  <div class="footnote">¹ Mark Zuckerberg, Meta Q1 2025 earnings call. ² Pavel Durov / Telegram. ³ MarketsandMarkets, Conversational AI: $13.2B (2024) → $49.9B (2030).</div>
+  <div class="chrome"><span>GetCons</span><span>02</span></div>
+</section>
+
+<!-- 3. SOLUTION -->
+<section class="slide">
+  <div class="kicker">The solution</div>
+  <div class="row" style="gap:90px;align-items:center;flex:1">
+    <div class="grow">
+      <h2>A personal AI consultant for your business, in one click</h2>
+      <div style="margin-top:52px;display:flex;flex-direction:column;gap:28px">
+        <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="zap"></i></div><div><h3>Real intelligence, not scripts</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">Google Gemini reads text, photos and voice notes, understands intent and replies naturally in the customer’s language.</p></div></div>
+        <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="book"></i></div><div><h3>Trained on your business</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">It uses your instructions, business facts, documents (RAG) and examples of your best real replies, and copies your tone.</p></div></div>
+        <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="shield"></i></div><div><h3>Always on, never reckless</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">It runs 24/7 and says “I’ll check” instead of guessing. Unsure chats get flagged and the owner gets an alert in WhatsApp or Telegram.</p></div></div>
+        <div class="row" style="gap:28px"><div class="icon" style="flex:none;margin:0"><i data-icon="cart"></i></div><div><h3>On Pro: an agent that does the work</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">Connected to your store, it places orders, cancels them and handles returns once the customer confirms, then tells them when the order ships.</p></div></div>
+      </div>
+    </div>
+    <div style="flex:none;width:360px" class="phone"><img src="assets/screens/mobile-thread.png" /></div>
+  </div>
+  <div class="chrome"><span>GetCons · real product screenshot, demo data</span><span>03</span></div>
+</section>
+
+<!-- 4. HOW IT WORKS -->
+<section class="slide">
+  <div class="kicker">How it works</div>
+  <h2>One button: a live AI consultant in WhatsApp, Telegram or on your site</h2>
+  <div class="row" style="margin-top:64px">
+    <div class="card grow"><div class="num accent" style="font-size:96px">1</div><h3 style="margin-top:22px">Create</h3><p>Pick your business type (store, salon, restaurant, services, courses) and click <b>Create</b>. You get a consultant with sensible defaults right away.</p></div>
+    <div class="card grow"><div class="num accent" style="font-size:96px">2</div><h3 style="margin-top:22px">Teach</h3><p>Add business facts and upload a price list or FAQ (PDF, DOCX, photos). Add a few example replies or import real chats. Then test it in the built-in chat.</p></div>
+    <div class="card grow"><div class="num accent" style="font-size:96px">3</div><h3 style="margin-top:22px">Launch in one click</h3><p><b>WhatsApp:</b> scan one QR code. <b>Telegram:</b> tap <b>Create</b> and the new bot goes live. <b>Website:</b> paste one line of code or share the chat link. No tokens, no code.</p></div>
+  </div>
+  <div class="row" style="margin-top:40px;align-items:center;gap:24px;background:var(--navy);color:#fff;border-radius:26px;padding:30px 40px">
+    <div class="icon on-ink" style="margin:0;flex:none"><i data-icon="refresh"></i></div>
+    <p style="font-size:26px;line-height:1.45;color:rgba(255,255,255,.85)"><b style="color:#fff">It keeps getting better:</b> every question the AI couldn’t answer shows up as a <i>knowledge gap</i>. The owner writes the answer once, and the consultant uses it from the very next message.</p>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>04</span></div>
+</section>
+
+<!-- 5. PRO: THE AI AGENT -->
+<section class="slide" style="padding-right:80px">
+  <div class="kicker">Pro plan · AI agent</div>
+  <h2 style="font-size:58px">From answers to actions: the agent does the work</h2>
+  <div class="row" style="margin-top:46px;gap:52px;flex:1;align-items:flex-start">
+    <div style="flex:none;width:980px" class="browser"><div class="bar"><span></span><span></span><span></span><em>AI agent</em></div><img src="assets/screens/agent.png" /></div>
+    <div class="grow">
+      <div class="callout" style="padding-top:4px"><div class="n">1</div><div><h3>Connect your website</h3><p>Shopify, WooCommerce or any site through a small signed API. No store yet? Orders go to the owner to confirm.</p></div></div>
+      <div class="callout"><div class="n">2</div><div><h3>The customer confirms</h3><p>Nothing changes in the store until the customer says yes in the chat. Refunds above the owner’s limit wait for approval.</p></div></div>
+      <div class="callout"><div class="n">3</div><div><h3>Orders, cancellations, returns</h3><p>Each task has its own switch and money limit. Every action is logged on the dashboard.</p></div></div>
+      <div class="callout"><div class="n">4</div><div><h3>Updates in the same chat</h3><p>Paid, shipped, delivered: the agent tells the customer in WhatsApp, Telegram or on the website.</p></div></div>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · Free, Start and Business: a consultant that answers. Pro: an agent that also does the work.</span><span>05</span></div>
+</section>
+
+<!-- 6. PRODUCT: THREE CHANNELS -->
+<section class="slide" style="padding-right:80px">
+  <div class="kicker">Product · three channels</div>
+  <h2 style="font-size:58px">WhatsApp, Telegram or your website: live in a minute</h2>
+  <div class="row" style="margin-top:46px;gap:52px;flex:1;align-items:flex-start">
+    <div style="flex:none;width:1000px" class="browser"><div class="bar"><span></span><span></span><span></span><em>Settings · Channels</em></div><img src="assets/screens/web-channel.png" /></div>
+    <div class="grow" style="display:flex;flex-direction:column;gap:18px">
+      <div class="card ch">
+        <div class="row" style="gap:18px;align-items:center"><div class="chan wa"><i data-icon="whatsapp"></i></div><h3>WhatsApp: link a work number</h3></div>
+        <ul class="clean" style="margin-top:6px"><li>One QR code (or an 8-character code) in Linked devices</li><li>Customers keep writing to the number they know</li></ul>
+      </div>
+      <div class="card ch">
+        <div class="row" style="gap:18px;align-items:center"><div class="chan tg"><i data-icon="telegram"></i></div><h3>Telegram: a new bot in one tap</h3></div>
+        <ul class="clean" style="margin-top:6px"><li>Telegram opens a pre-filled sheet: tap “Create”</li><li>No BotFather, no tokens</li></ul>
+      </div>
+      <div class="card ch">
+        <div class="row" style="gap:18px;align-items:center"><div class="chan web"><i data-icon="web"></i></div><h3>Website: one line of code</h3></div>
+        <ul class="clean" style="margin-top:6px"><li>A chat button on any site: Tilda, WordPress, Shopify, Wix</li><li>A chat link and QR code for Instagram, Maps or the counter</li></ul>
+      </div>
+      <p style="font-size:18px;line-height:1.45;color:var(--muted)">All channels share one brain, one inbox and one analytics view.</p>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · real product screenshots, demo data</span><span>06</span></div>
+</section>
+
+<!-- 7. PRODUCT: DASHBOARD -->
+<section class="slide" style="padding-right:60px">
+  <div class="kicker">Product · built and working</div>
+  <h2 style="font-size:58px">One dashboard to run your AI consultant</h2>
+  <div class="row" style="margin-top:46px;gap:56px;flex:1;align-items:flex-start">
+    <div style="flex:none;width:1080px" class="browser"><div class="bar"><span></span><span></span><span></span><em>Overview</em></div><img src="assets/screens/overview.png" /></div>
+    <div class="grow">
+      <div class="callout"><div class="n">1</div><div><h3>Live KPIs</h3><p>Customer messages, AI replies, automation rate, response time, and chats that need attention.</p></div></div>
+      <div class="callout"><div class="n">2</div><div><h3>Knowledge gaps</h3><p>Every question the AI couldn’t answer, with one-click “Teach answer”.</p></div></div>
+      <div class="callout"><div class="n">3</div><div><h3>Every channel at a glance</h3><p>WhatsApp number, Telegram bot and website chat, guided setup and an event log.</p></div></div>
+      <div class="callout"><div class="n">4</div><div><h3>English & Russian</h3><p>One click switches the whole interface.</p></div></div>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · real product screenshots, demo data</span><span>07</span></div>
+</section>
+
+<!-- 8. PRODUCT: INBOX + TEST CHAT -->
+<section class="slide">
+  <div class="kicker">Product</div>
+  <h2 style="font-size:58px">Humans stay in control. Every answer can be explained.</h2>
+  <div class="row" style="margin-top:46px;gap:40px">
+    <div class="grow">
+      <div class="browser"><div class="bar"><span></span><span></span><span></span><em>Conversations</em></div><img src="assets/screens/conversations.png" /></div>
+      <h3 style="margin-top:28px">Live inbox with human takeover</h3>
+      <p style="font-size:22px;color:var(--body);margin-top:8px;line-height:1.45">WhatsApp, Telegram and website chats in one inbox: watch live, pause the AI per chat, and reply from the dashboard.</p>
+    </div>
+    <div class="grow">
+      <div class="browser"><div class="bar"><span></span><span></span><span></span><em>Test chat</em></div><img src="assets/screens/playground.png" /></div>
+      <h3 style="margin-top:28px">“Why this answer?”</h3>
+      <p style="font-size:22px;color:var(--body);margin-top:8px;line-height:1.45">See the sources used, confidence, status and latency, and what would be flagged for a human.</p>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · real product screenshots, demo data</span><span>08</span></div>
+</section>
+
+<!-- 9. PRODUCT: KNOWLEDGE + TRAINING -->
+<section class="slide">
+  <div class="kicker">Product</div>
+  <h2 style="font-size:58px">Teach it like a new employee: docs and real chats</h2>
+  <div class="row" style="margin-top:46px;gap:40px">
+    <div class="grow">
+      <div class="browser"><div class="bar"><span></span><span></span><span></span><em>Knowledge base</em></div><img src="assets/screens/knowledge.png" /></div>
+      <h3 style="margin-top:28px">Knowledge base (RAG)</h3>
+      <p style="font-size:22px;color:var(--body);margin-top:8px;line-height:1.45">PDF, DOCX, CSV, web pages and photos. Scanned documents are read by Gemini. A built-in retrieval tester shows what the AI will find.</p>
+    </div>
+    <div class="grow">
+      <div class="browser"><div class="bar"><span></span><span></span><span></span><em>Training examples</em></div><img src="assets/screens/training.png" /></div>
+      <h3 style="margin-top:28px">Examples from real conversations</h3>
+      <p style="font-size:22px;color:var(--body);margin-top:8px;line-height:1.45">Import chat exports, transcripts or CSV. The most similar examples guide every reply (few-shot).</p>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · real product screenshots, demo data</span><span>09</span></div>
+</section>
+
+<!-- 10. TECHNOLOGY -->
+<section class="slide">
+  <div class="kicker">Technology</div>
+  <h2>Real AI, honest “training”</h2>
+  <p class="lead" style="font-size:27px;max-width:1600px">Every customer message runs through a grounded pipeline. Saving knowledge never pretends to retrain the model, and every change applies to the very next message.</p>
+  <div class="flow" style="margin-top:52px">
+    <div class="step"><small>1 · Message</small><b>Text, photo or voice</b><span>from WhatsApp, Telegram or the website chat, queued per chat</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><small>2 · Retrieve</small><b>Hybrid search</b><span>Gemini embeddings + pgvector + full-text, fused with RRF</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><small>3 · Personalise</small><b>Few-shot + memory</b><span>most similar owner examples, recent history and a rolling summary</span></div>
+    <div class="arrow">→</div>
+    <div class="step" style="border-color:var(--brand);background:var(--brand-50)"><small>4 · Reason</small><b>Gemini + tools</b><span>structured reply with confidence and sources; on Pro, store tools by function calling</span></div>
+    <div class="arrow">→</div>
+    <div class="step"><small>5 · Decide</small><b>Answer · act · hand off</b><span>customer-confirmed actions, owner alerts, everything logged</span></div>
+  </div>
+  <div class="row" style="margin-top:44px;gap:32px">
+    <div class="card grow" style="padding:34px 38px">
+      <h3>Why not fine-tuning?</h3>
+      <ul class="clean"><li>The Gemini API offers no fine-tuning for current models (Google docs, Oct 2026).</li><li>Prices and stock change daily, so they belong in retrieval, not model weights.</li><li>RAG + few-shot is instant, editable, auditable and cheap per tenant.</li></ul>
+    </div>
+    <div class="card grow" style="padding:34px 38px">
+      <h3>Stack</h3>
+      <ul class="clean"><li style="font-size:22px"><b>Google Gemini</b>: 3.1 Flash-Lite with a 3.5 Flash-Lite backup, embeddings, OCR; xAI Grok as a reserve provider</li><li style="font-size:22px"><b>Supabase</b>: Postgres, pgvector, Auth, Row Level Security</li><li style="font-size:22px"><b>Channels</b>: WhatsApp linked devices, Telegram Bot API webhooks, an embeddable web chat</li><li style="font-size:22px"><b>Railway</b>: always-on container, zero-downtime deploys</li></ul>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>10</span></div>
+</section>
+
+<!-- 11. TRUST -->
+<section class="slide">
+  <div class="kicker">Trust & reliability</div>
+  <h2>Built to be trusted with real customers</h2>
+  <div class="trust" style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px">
+    <div class="card"><div class="icon"><i data-icon="file"></i></div><h3>Grounded answers</h3><p>Business facts come only from the owner’s data and the live store catalog. Each reply records the passages it cited.</p></div>
+    <div class="card"><div class="icon amber"><i data-icon="bell"></i></div><h3>Honest fallback & handoff</h3><p>When unsure, it promises to check. Complaints go to a human. The owner gets an alert in WhatsApp or Telegram with a link.</p></div>
+    <div class="card"><div class="icon green"><i data-icon="userCheck"></i></div><h3>Safe actions</h3><p>Orders, cancellations and refunds run only after the customer confirms in the chat. Big refunds wait for the owner. Every action is logged.</p></div>
+    <div class="card"><div class="icon sky"><i data-icon="shield"></i></div><h3>Strict data isolation</h3><p>Postgres row-level security, trigger-derived ownership, and no client writes. Each business sees only its own data.</p></div>
+    <div class="card"><div class="icon rose"><i data-icon="lock"></i></div><h3>Secrets protected</h3><p>Bot tokens, WhatsApp sessions and store keys are encrypted with AES-256-GCM. Store calls are signed and go to public HTTPS only.</p></div>
+    <div class="card"><div class="icon"><i data-icon="flask"></i></div><h3>Tested & resilient</h3><p>148 automated tests. Idempotent webhooks, retries with backoff, a backup model and provider, rate and daily limits.</p></div>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>11</span></div>
+</section>
+
+<!-- 12. MARKET -->
+<section class="slide">
+  <div class="kicker">Market</div>
+  <h2>A fast-growing market with an open messenger niche</h2>
+  <div class="row" style="margin-top:40px;gap:80px;align-items:center;flex:1">
+    <div style="flex:none;width:640px;height:640px;position:relative">
+      <div style="position:absolute;left:0;top:0;width:640px;height:640px;border-radius:50%;background:#e9e8e2;display:flex;justify-content:center;padding-top:56px"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em;color:var(--muted)">TAM</div><div style="font-size:54px;font-weight:760;letter-spacing:-.03em">$49.9B</div></div></div>
+      <div style="position:absolute;left:100px;top:200px;width:440px;height:440px;border-radius:50%;background:var(--brand-200);display:flex;justify-content:center;padding-top:50px;color:var(--ink)"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em;color:var(--brand)">SAM</div><div style="font-size:50px;font-weight:760;letter-spacing:-.03em">≈$1B / yr</div></div></div>
+      <div style="position:absolute;left:190px;top:380px;width:260px;height:260px;border-radius:50%;background:var(--brand);display:flex;justify-content:center;align-items:center;color:#fff"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em">SOM</div><div style="font-size:46px;font-weight:760;letter-spacing:-.03em">$9.6M</div></div></div>
+    </div>
+    <div class="grow" style="display:flex;flex-direction:column;gap:26px">
+      <div class="card" style="padding:28px 34px"><h3>TAM: conversational AI, by 2030</h3><p>$13.2B in 2024 growing to $49.9B by 2030 (24.9% CAGR, MarketsandMarkets). Chatbots alone: $27.3B by 2030 (Grand View Research).</p></div>
+      <div class="card" style="padding:28px 34px"><h3>SAM: SMBs selling in messengers <span class="assump">Assumption</span></h3><p>Conservatively ~2M small businesses that sell and support customers in WhatsApp and Telegram (CIS, Middle East, South Asia, Europe) × $40/month.</p></div>
+      <div class="card" style="padding:28px 34px"><h3>SOM: 20,000 paying businesses in 3 years <span class="assump">Target</span></h3><p>About 1% of SAM at a $40 average plan, giving $9.6M ARR.</p></div>
+    </div>
+  </div>
+  <div class="footnote">WhatsApp: 3B+ monthly users (Meta, Apr 2025). Telegram: 1B+ MAU (Mar 2025), per Telegram/Durov. Market reports use different definitions; the figures are directional. SAM and SOM are company assumptions.</div>
+  <div class="chrome"><span>GetCons</span><span>12</span></div>
+</section>
+
+<!-- 13. BUSINESS MODEL -->
+<section class="slide">
+  <div class="kicker">Business model</div>
+  <h2>Simple SaaS pricing. Pro turns the consultant into an agent.</h2>
+  <div class="row" style="margin-top:56px;gap:26px">
+    <div class="price"><div class="tier">Free</div><div class="amt">$0<small> /mo</small></div><ul><li>AI consultant, 24/7</li><li>1 consultant · 100 replies</li><li>WhatsApp, Telegram & website</li><li>“Powered by GetCons”</li></ul></div>
+    <div class="price"><div class="tier">Start</div><div class="amt">$19<small> /mo</small></div><ul><li>1 consultant</li><li>1,500 AI replies</li><li>Knowledge base & examples</li><li>No GetCons signature</li></ul></div>
+    <div class="price"><div class="tier">Business</div><div class="amt">$49<small> /mo</small></div><ul><li>3 consultants</li><li>5,000 AI replies</li><li>Chat import & owner alerts</li><li>Analytics for 90 days</li></ul></div>
+    <div class="price hl" data-badge="AI agent"><div class="tier">Pro</div><div class="amt">$129<small> /mo</small></div><ul><li>Orders, cancellations, returns</li><li>Shopify, WooCommerce or any site</li><li>Order updates in the same chat</li><li>10 consultants · 20,000 replies</li></ul></div>
+  </div>
+  <div class="row" style="margin-top:36px;gap:26px">
+    <div class="card grow" style="padding:30px 36px;display:flex;align-items:center;gap:36px"><div class="num accent" style="font-size:64px">≈$0.0025</div><p style="margin:0;font-size:22px">AI cost per reply: ~6K input + 250 output tokens on gemini-3.5-flash-lite ($0.30 / $2.50 per 1M tokens)</p></div>
+    <div class="card grow" style="padding:30px 36px;display:flex;align-items:center;gap:36px"><div class="num accent" style="font-size:64px;white-space:nowrap">80–90%</div><p style="margin:0;font-size:22px">Target gross margin. For comparison, enterprise AI agents charge about $0.99 per resolution (Intercom Fin).</p></div>
+  </div>
+  <div class="footnote">Plans and limits are a proposal to be validated in beta. Overage: $0.01 per reply. Agent turns that use store tools take 2–3 model calls. Gemini prices per Google AI pricing page (Oct 2026); Intercom per public third-party reviews.</div>
+  <div class="chrome"><span>GetCons</span><span>13</span></div>
+</section>
+
+<!-- 14. COMPETITION -->
+<section class="slide">
+  <div class="kicker">Competition</div>
+  <h2>Smart like enterprise AI. Simple and affordable like a bot builder.</h2>
+  <div class="row" style="margin-top:48px;gap:60px;align-items:stretch;flex:1">
+    <div style="flex:none;width:640px;position:relative;border-left:3px solid var(--line);border-bottom:3px solid var(--line);margin:10px 0 50px 40px">
+      <div style="position:absolute;left:-46px;top:0;bottom:0;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-size:18px;color:var(--muted);font-weight:600;white-space:nowrap">Understands and acts on free-form chats →</div>
+      <div style="position:absolute;bottom:-44px;left:0;right:0;text-align:center;font-size:18px;color:var(--muted);font-weight:600">Built for SMBs in messengers (setup, price) →</div>
+      <div style="position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed var(--line)"></div>
+      <div style="position:absolute;top:50%;left:0;right:0;border-top:2px dashed var(--line)"></div>
+      <div style="position:absolute;left:40px;top:60px" class="pill">Enterprise AI agents</div>
+      <div style="position:absolute;left:110px;top:230px;background:#ecebe6;color:var(--body)" class="pill">Generic AI chat apps</div>
+      <div style="position:absolute;right:30px;bottom:70px;background:#ecebe6;color:var(--body)" class="pill">Flow / button builders</div>
+      <div style="position:absolute;right:20px;top:40px;background:var(--solid);color:#fff;font-size:26px;font-weight:760;padding:18px 28px;border-radius:20px;box-shadow:0 20px 40px -16px rgba(23,24,28,.5)">GetCons</div>
+    </div>
+    <div class="grow">
+      <table class="cmp" style="font-size:20px">
+        <colgroup><col style="width:36%" /><col /><col /><col /><col /></colgroup>
+        <thead><tr><th></th><th>Flow builders</th><th>Enterprise AI</th><th>AI chat apps</th><th class="us">GetCons</th></tr></thead>
+        <tbody>
+          <tr><td>Understands natural language</td><td class="part">~</td><td class="check">✓</td><td class="check">✓</td><td class="us check">✓</td></tr>
+          <tr><td>WhatsApp, Telegram &amp; website in one click</td><td class="cross">–</td><td class="cross">–</td><td class="cross">–</td><td class="us check">✓</td></tr>
+          <tr><td>Trained on your docs & real chats</td><td class="cross">–</td><td class="check">✓</td><td class="part">~</td><td class="us check">✓</td></tr>
+          <tr><td>Takes orders & refunds in the chat</td><td class="part">~</td><td class="check">✓</td><td class="cross">–</td><td class="us check">✓</td></tr>
+          <tr><td>Honest fallback + human handoff</td><td class="part">~</td><td class="check">✓</td><td class="cross">–</td><td class="us check">✓</td></tr>
+          <tr><td>SMB price (from $19/mo)</td><td class="check">✓</td><td class="cross">–</td><td class="check">✓</td><td class="us check">✓</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:18px;color:var(--faint);margin-top:22px;line-height:1.45">Examples: flow builders (ManyChat, SendPulse, Salebot); enterprise AI agents (Intercom Fin, Zendesk AI); AI chat apps (ChatGPT, Gemini). Comparison by category, generalised.</p>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>14</span></div>
+</section>
+
+<!-- 15. GO TO MARKET -->
+<section class="slide">
+  <div class="kicker">Go-to-market</div>
+  <h2>Grow where customers already write: WhatsApp, Telegram and the web</h2>
+  <div class="gtm" style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px">
+    <div class="card"><div class="icon solid"><i data-icon="trend"></i></div><h3>Product-led & viral</h3><p>A free plan and one-click setup. Every free consultant carries “Powered by GetCons” in the chat, so each one shows the brand to its customers.</p></div>
+    <div class="card"><div class="icon solid"><i data-icon="megaphone"></i></div><h3>Messenger-native acquisition</h3><p>Telegram Ads, entrepreneur channels and WhatsApp business communities. Live demo bots and numbers that show the AI in action.</p></div>
+    <div class="card"><div class="icon solid"><i data-icon="layout"></i></div><h3>Vertical templates</h3><p>Ready-made consultants for flower shops, salons, restaurants, courses and services. Each vertical gets its own landing page.</p></div>
+    <div class="card"><div class="icon solid"><i data-icon="users"></i></div><h3>Agencies & freelancers</h3><p>20–30% revenue share and white-label on Pro. Agencies set up consultants and store agents for their clients.</p></div>
+    <div class="card"><div class="icon solid"><i data-icon="message"></i></div><h3>Content & proof</h3><p>Case studies with automation rates and orders taken by the agent. A free “AI audit of your chat” lead magnet.</p></div>
+    <div class="card inv" style="background:var(--navy);color:#fff;border-color:var(--navy)"><h3 style="color:#fff">Funnel targets <span class="assump">Assumption</span></h3>
+      <ul class="clean" style="margin-top:6px"><li>Visitor → sign-up: 8%</li><li>Sign-up → live bot: 40%</li><li>Live bot → paid: 25%</li></ul></div>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>15</span></div>
+</section>
+
+<!-- 16. TRACTION & ROADMAP -->
+<section class="slide">
+  <div class="kicker">Traction & roadmap</div>
+  <h2>The product is built, agent included. Next: customers and integrations.</h2>
+  <div class="timeline">
+    <div class="t done"><small>Now · Nov 2026</small><b>MVP + AI agent</b><span>Gemini consultants in WhatsApp, Telegram and website chat; the Pro agent for orders, cancellations and returns. 148 tests.</span></div>
+    <div class="t next"><small>Dec 2026 – Jan 2027</small><b>Closed beta</b><span>30–50 SMBs across 3 verticals. Validate pricing, automation rate and agent usage.</span></div>
+    <div class="t"><small>Q1 2027</small><b>Public launch</b><span>Billing live, self-serve plans, partner program, case studies.</span></div>
+    <div class="t"><small>Q2 2027</small><b>More channels</b><span>Instagram and the official WhatsApp Business API. CRM integrations (amoCRM, Bitrix24, HubSpot).</span></div>
+    <div class="t"><small>Q3 2027</small><b>Deeper actions</b><span>Bookings and appointments, payments inside the chat, voice replies.</span></div>
+    <div class="t"><small>Q4 2027</small><b>Platform</b><span>Template marketplace, white-label for agencies, AI insights from conversations.</span></div>
+  </div>
+  <div class="row" style="margin-top:70px;gap:28px">
+    <div class="card grow" style="padding:30px 36px"><h3>What exists today</h3><p>A full working product: web app, API, WhatsApp, Telegram and website chat, the Pro agent with Shopify, WooCommerce and custom-site connectors, tenant-isolated database, deployment and docs. No paying customers yet; traction metrics start with the beta.</p></div>
+    <div class="card grow" style="padding:30px 36px"><h3>Beta success criteria</h3><p>Over 80% of replies automated without fallback, a median reply under 5 seconds, and over 40% of beta users converting to a paid plan.</p></div>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>16</span></div>
+</section>
+
+<!-- 17. FINANCIALS -->
+<section class="slide">
+  <div class="kicker">Financial plan</div>
+  <h2>Path to $9.6M ARR in three years</h2>
+  <div class="row" style="margin-top:50px;gap:70px;flex:1">
+    <div class="grow">
+      <div class="bar-chart">
+        <div class="b"><div class="v">$0.6M</div><div class="col" style="height:6%"></div></div>
+        <div class="b"><div class="v">$2.7M</div><div class="col" style="height:28%"></div></div>
+        <div class="b"><div class="v">$9.6M</div><div class="col" style="height:100%"></div></div>
+      </div>
+      <div class="bar-x"><div><b>Year 1</b>1,500 paying</div><div><b>Year 2</b>6,000 paying</div><div><b>Year 3</b>20,000 paying</div></div>
+    </div>
+    <div style="flex:none;width:560px;display:flex;flex-direction:column;gap:24px">
+      <span class="assump" style="align-self:flex-start">Model assumptions, not results</span>
+      <div class="card" style="padding:26px 32px"><div class="num" style="font-size:52px">$35 → $40</div><div class="label">blended ARPU per month, as Business and Pro plans grow</div></div>
+      <div class="card" style="padding:26px 32px"><div class="num" style="font-size:52px">82% → 86%</div><div class="label">gross margin (Gemini + Railway + Supabase costs)</div></div>
+      <div class="card" style="padding:26px 32px"><div class="num" style="font-size:52px">&lt; 4%</div><div class="label">monthly logo churn target. CAC payback under 6 months.</div></div>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · ARR at year end</span><span>17</span></div>
+</section>
+
+<!-- 18. TEAM & ASK -->
+<section class="slide">
+  <div class="kicker">Team & the ask</div>
+  <div class="row" style="gap:70px;flex:1;margin-top:10px">
+    <div class="grow" style="display:flex;flex-direction:column">
+      <h2 style="font-size:56px">The team</h2>
+      <div class="card" style="margin-top:40px;padding:48px 52px;flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="row" style="align-items:center;gap:34px">
+          <div style="width:140px;height:140px;border-radius:50%;background:var(--solid);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:52px;font-weight:760;letter-spacing:-.02em">YA</div>
+          <div><h3 style="font-size:44px;letter-spacing:-.02em">Yesylkhan Alikhan</h3><div class="pill" style="margin-top:16px;font-size:22px">CEO & Engineer</div></div>
+        </div>
+        <div style="margin-top:46px;font-size:19px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Built GetCons end to end</div>
+        <ul class="clean" style="margin-top:6px">
+          <li><b>Product:</b> web dashboard, one-click WhatsApp, Telegram and website chat, English and Russian</li>
+          <li><b>AI:</b> Gemini pipeline with RAG, few-shot from real chats, memory, honest fallback and the Pro store agent</li>
+          <li><b>Platform:</b> Supabase with row-level data isolation, always-on messenger runtime, 148 automated tests</li>
+        </ul>
+      </div>
+    </div>
+    <div class="inv" style="flex:none;width:760px;background:var(--navy);color:#fff;border-radius:34px;padding:52px 56px;position:relative;overflow:hidden">
+      <div style="position:relative">
+        <div style="font-size:22px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-200)">Raising</div>
+        <div style="font-size:104px;font-weight:780;letter-spacing:-.05em;line-height:1.05;margin-top:8px">$500K</div>
+        <div style="font-size:26px;color:rgba(255,255,255,.7)">pre-seed · 18-month runway</div>
+        <div class="row" style="margin-top:40px;gap:40px;align-items:center">
+          <div style="flex:none;width:230px;height:230px;border-radius:50%;background:conic-gradient(#ae9feb 0 40%, #e7e2fa 40% 75%, #6d55d0 75% 90%, #f59e0b 90% 100%);display:flex;align-items:center;justify-content:center"><div style="width:130px;height:130px;border-radius:50%;background:var(--navy)"></div></div>
+          <div style="display:flex;flex-direction:column;gap:14px;font-size:22px">
+            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#ae9feb;margin-right:12px"></span>Product & AI · 40%</div>
+            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#e7e2fa;margin-right:12px"></span>Growth & marketing · 35%</div>
+            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#6d55d0;margin-right:12px"></span>Sales & partners · 15%</div>
+            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#f59e0b;margin-right:12px"></span>Ops & infrastructure · 10%</div>
+          </div>
+        </div>
+        <div style="margin-top:40px;font-size:22px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-200)">Milestones this round buys</div>
+        <ul class="clean" style="margin-top:4px"><li>2,000 paying businesses</li><li>$1M ARR run-rate</li><li>Instagram + CRM integrations live</li></ul>
+      </div>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons</span><span>18</span></div>
+</section>
+
+<!-- 19. CLOSING -->
+<section class="slide dark" style="justify-content:center;align-items:center;text-align:center">
+  <div style="position:relative;display:flex;flex-direction:column;align-items:center">
+    <div class="logo"><svg viewBox="0 0 64 64" data-logo></svg><b>GetCons</b></div>
+    <h1 style="margin-top:70px;max-width:1400px">Every business deserves a brilliant consultant, <span class="accent">in every chat</span></h1>
+    <p class="lead" style="margin:36px auto 0;max-width:1100px">Let’s give small businesses a consultant that never sleeps, and an agent that gets the work done.</p>
+    <div class="row" style="margin-top:64px;gap:22px;justify-content:center">
+      <span class="pill contact"><i data-icon="mail"></i>alikhandev750@gmail.com</span><span class="pill contact"><i data-icon="send"></i>Telegram: @m1ller_arrow777</span>
+    </div>
+  </div>
+  <div class="chrome"><span>GetCons · Thank you</span><span>19</span></div>
+</section>
+
+<script>
+  const ICONS = {
+    clock: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    userCheck: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m16 11 2 2 4-4"/>',
+    bot: '<path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/>',
+    zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+    book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+    lock: '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+    cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+    refresh: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
+    file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="M13.3 16.3 15 18"/>',
+    flask: '<path d="M9 3h6"/><path d="M10 3v6L4.5 19A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-2L14 9V3"/><path d="M7 15h10"/>',
+    trend: '<path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/>',
+    megaphone: '<path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/>',
+    layout: '<rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/>',
+    message: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/>',
+    mail: '<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+    send: '<path d="M14.5 21.7a.5.5 0 0 0 .9 0l6.5-19a.5.5 0 0 0-.6-.6l-19 6.5a.5.5 0 0 0 0 .9l7.9 3.2a2 2 0 0 1 1.1 1.1z"/><path d="m21.9 2.1-11 11"/>',
+  };
+  // Channel glyphs, same shapes as the web app.
+  const GLYPHS = {
+    whatsapp: '<svg viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.2 8.1c.2-.4.4-.4.7-.4h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c.4.9 1.2 1.8 2.2 2.2l.6-.5c.2-.1.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.5c0 .3-.1.6-.4.8-.6.4-1.6.6-3-.1a8.2 8.2 0 0 1-3.6-3.6c-.6-1.3-.6-2.3-.2-3.2z" fill="currentColor"/></svg>',
+    telegram: '<svg viewBox="10 16 42 34"><path d="M18 31.5 45.5 20.6c1.4-.5 2.6.3 2.2 2.4l-4.7 22c-.3 1.6-1.3 2-2.6 1.2l-7.1-5.2-3.4 3.3c-.4.4-.7.7-1.4.7l.5-7.3 13.2-11.9c.6-.5-.1-.8-.9-.3L23.1 35.8l-7-2.2c-1.5-.5-1.5-1.5-.1-2.1Z" fill="currentColor"/></svg>',
+    web: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9h18"/><circle cx="6.2" cy="6.8" r=".6" fill="currentColor" stroke="none"/><circle cx="8.4" cy="6.8" r=".6" fill="currentColor" stroke="none"/><path d="M8 13.2h8M8 16h5" stroke-linecap="round"/></svg>',
+  };
+  document.querySelectorAll('[data-icon]').forEach((el) => {
+    el.outerHTML =
+      GLYPHS[el.dataset.icon] ??
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[el.dataset.icon] ?? ''}</svg>`;
+  });
+  // The GetCons mark, same as the web app: a "G" on an ink tile with a violet square.
+  // On dark slides the tile turns white and the G ink.
+  document.querySelectorAll('[data-logo]').forEach((svg) => {
+    const dark = Boolean(svg.closest('.dark'));
+    const tile = dark ? '#fff' : '#17181c';
+    const mark = dark ? '#17181c' : '#fff';
+    svg.innerHTML = `<rect width="64" height="64" rx="15" fill="${tile}"/><path d="M41.6 20.5A15 15 0 1 0 47 32H34" fill="none" stroke="${mark}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><rect x="45" y="45" width="8" height="8" rx="2" fill="#7c5cff"/>`;
+  });
+  // Slide numbers follow the order of the slides.
+  document.querySelectorAll('.slide').forEach((slide, i) => {
+    const n = slide.querySelector('.chrome span:last-child');
+    if (n) n.textContent = String(i + 1).padStart(2, '0');
+  });
+</script>
+</body>
+</html>
