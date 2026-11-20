@@ -57,6 +57,9 @@ server/                 Express API, WhatsApp/Telegram/web runtime, Gemini engin
   src/http/             app, auth middleware, routes
   test/                 unit + pipeline + HTTP + PGlite RLS tests; test/integration (live Supabase)
 web/                    React dashboard + landing page (EN/RU)
+  src/components/landing/robot-cloud.bin   the landing robot's particles (generated, see scripts/robot-cloud)
+scripts/robot-cloud/    turns a robot 3D model (FBX/GLB/OBJ + texture) into robot-cloud.bin:
+                        node scripts/robot-cloud/convert.mjs <model.fbx>  (needs Edge or Chrome)
 supabase/migrations/    schema, RLS policies, hybrid search & analytics functions
 .railway/railway.ts     Railway Infrastructure-as-Code
 Dockerfile              production image (API + built SPA)
@@ -111,7 +114,7 @@ You can apply the same settings as code with [`.railway/railway.ts`](.railway/ra
 ## Tests
 
 ```bash
-npm test                    # 148 tests: unit, prompt, documents, WhatsApp/Telegram/web → Gemini → reply pipelines, the Pro agent and store connectors, LLM backends, WhatsApp linking, HTTP, plans & payments, Postgres RLS
+npm test                    # 149 tests: unit, prompt, documents, WhatsApp/Telegram/web → Gemini → reply pipelines, the Pro agent and store connectors, LLM backends, WhatsApp linking, HTTP, plans & payments, Postgres RLS
 npm run test:integration    # optional, against a real Supabase project (see below)
 npm run typecheck
 ```

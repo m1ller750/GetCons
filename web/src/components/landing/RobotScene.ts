@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { buildRobotCloud, type RobotCloud } from './robotGeometry';
+import cloudUrl from './robot-cloud.bin?url';
+import { loadRobotCloud, type RobotCloud } from './robotCloud';
 
 /** Where the particles are and what they form, driven by scroll. */
 export interface SceneState {
@@ -309,7 +310,7 @@ export class RobotScene {
   private points: THREE.Points;
   private clock = new THREE.Clock();
   private raf = 0;
-  private worker: Worker | null = null;
+  private loading = new AbortController();
   private robotReady = false;
   private disposed = false;
   private target: SceneState = { assemble: 0, x: 0, y: 0, scale: 1, rotY: 0, dust: 0, text: 0, opacity: 1, fade: -1.05 };
@@ -448,32 +449,18 @@ export class RobotScene {
     g.setAttribute('aHead', new THREE.BufferAttribute(cloud.headWeights, 1));
   }
 
-  /** The wave renders right away; the robot is sampled in a worker and swapped in when ready. */
+  /** The wave renders right away; the robot's points load as one small file and swap in when ready. */
   private loadRobot(count: number) {
-    const apply = (cloud: RobotCloud) => {
-      if (this.disposed) return;
-      this.setRobot(cloud);
-      this.robotReady = true;
-      if (this.reduced) this.current.assemble = this.target.assemble;
-    };
-    const inline = () => window.setTimeout(() => apply(buildRobotCloud(count)), 0);
-    try {
-      const worker = new Worker(new URL('./robotWorker.ts', import.meta.url), { type: 'module' });
-      worker.onmessage = (event: MessageEvent<RobotCloud>) => {
-        apply(event.data);
-        worker.terminate();
-        this.worker = null;
-      };
-      worker.onerror = () => {
-        worker.terminate();
-        this.worker = null;
-        inline();
-      };
-      worker.postMessage({ count });
-      this.worker = worker;
-    } catch {
-      inline();
-    }
+    loadRobotCloud(cloudUrl, count, this.loading.signal)
+      .then((cloud: RobotCloud) => {
+        if (this.disposed) return;
+        this.setRobot(cloud);
+        this.robotReady = true;
+        if (this.reduced) this.current.assemble = this.target.assemble;
+      })
+      .catch(() => {
+        // Without the robot the page still works: the particles stay a wave and become the wordmark.
+      });
   }
 
   private loop = () => {
@@ -526,7 +513,7 @@ export class RobotScene {
   dispose() {
     this.disposed = true;
     cancelAnimationFrame(this.raf);
-    this.worker?.terminate();
+    this.loading.abort();
     this.geometry.dispose();
     this.material.dispose();
     this.renderer.dispose();

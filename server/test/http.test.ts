@@ -1,3 +1,6 @@
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 import { KnowledgeIndexer } from '../src/core/knowledge.js';
@@ -65,7 +68,7 @@ function rlsClient(tables: Record<string, Row[]>, userId: string): SupabaseClien
 
 const TOKEN = '111:AAEtesttokentesttokentesttokentest';
 
-function setup() {
+function setup(webDistPath: string | null = null) {
   const config = testConfig();
   const store = new FakeStore();
   const llm = new FakeLlm();
@@ -101,10 +104,31 @@ function setup() {
     runtime,
     transport,
     indexer: new KnowledgeIndexer({ store, llm, config, logger }),
-    webDistPath: null,
+    webDistPath,
   });
   return { app, store, runtime, telegram, aliceConsultant, bobConsultant, llm };
 }
+
+describe('built site', () => {
+  it('serves the dashboard and landing bundles gzip-compressed and cached forever', async () => {
+    const dir = mkdtempSync(path.join(tmpdir(), 'getcons-dist-'));
+    try {
+      mkdirSync(path.join(dir, 'assets'));
+      writeFileSync(path.join(dir, 'index.html'), '<!doctype html><title>GetCons</title>');
+      writeFileSync(path.join(dir, 'assets', 'app-abc123.js'), 'console.log("getcons");\n'.repeat(400));
+      const { app } = setup(dir);
+      const asset = await request(app).get('/assets/app-abc123.js').set('Accept-Encoding', 'gzip');
+      expect(asset.status).toBe(200);
+      expect(asset.headers['content-encoding']).toBe('gzip');
+      expect(asset.headers['cache-control']).toContain('immutable');
+      const page = await request(app).get('/pricing').set('Accept-Encoding', 'gzip');
+      expect(page.status).toBe(200);
+      expect(page.text).toContain('<title>GetCons</title>');
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
 
 describe('HTTP API', () => {
   it('serves health and public config without auth, never exposing server secrets', async () => {
