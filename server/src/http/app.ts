@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
+import compression from 'compression';
 import cors from 'cors';
 import express, { Router, type Express } from 'express';
 import { rateLimit } from 'express-rate-limit';
@@ -149,6 +150,8 @@ export function createApp(deps: AppDeps): Express {
   // ---------------------------------------------------------------------------
   const dist = deps.webDistPath;
   if (dist && existsSync(path.join(dist, 'index.html'))) {
+    // gzip for the dashboard and landing bundles (about 4x smaller); the API above stays uncompressed.
+    app.use(compression());
     app.use(express.static(dist, { index: false, maxAge: '1h', setHeaders: cacheHeaders }));
     app.get('/{*splat}', (req, res, next) => {
       if (req.path.startsWith('/api') || req.path.startsWith('/telegram') || req.path.startsWith('/c-assets')) return next();

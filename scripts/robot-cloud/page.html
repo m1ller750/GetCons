@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js","three/addons/":"/three/examples/jsm/"}}</script>
+</head>
+<body>
+<script type="module">
+  import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
+  import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+  import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+  // Loads the model into window.model; the lattice converter (lattice.js) reads it from there.
+  window.loadModel = async (name) => {
+    const url = '/model/' + encodeURIComponent(name);
+    const ext = name.split('.').pop().toLowerCase();
+    let obj;
+    if (ext === 'fbx') obj = await new FBXLoader().loadAsync(url);
+    else if (ext === 'glb' || ext === 'gltf') obj = (await new GLTFLoader().loadAsync(url)).scene;
+    else if (ext === 'obj') obj = await new OBJLoader().loadAsync(url);
+    else throw new Error('Unsupported model format: ' + ext);
+    obj.updateMatrixWorld(true);
+    window.model = obj;
+    let meshes = 0;
+    obj.traverse((o) => { if (o.isMesh) meshes++; });
+    return { meshes };
+  };
+  window.ready = true;
+</script>
+<script type="module" src="/lattice.js"></script>
+</body>
+</html>

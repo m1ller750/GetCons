@@ -92,14 +92,13 @@
   .flow .step span { display: block; font-size: 18px; color: var(--muted); margin-top: 10px; line-height: 1.4; }
   .flow .arrow { flex: none; width: 46px; display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 34px; }
   .price { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 26px; padding: 34px 32px; display: flex; flex-direction: column; }
-  .price.hl { border: 2px solid var(--brand); box-shadow: 0 30px 60px -30px rgba(23,24,28,.35); position: relative; }
+  .price.hl { position: relative; }
   .price.hl::after { content: attr(data-badge); position: absolute; top: -18px; right: 26px; background: var(--brand); color: #fff; font-size: 16px; font-weight: 700; padding: 6px 16px; border-radius: 999px; }
   .price .tier { font-size: 22px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
   .price .amt { font-size: 66px; font-weight: 760; letter-spacing: -0.04em; margin-top: 12px; }
   .price .amt small { font-size: 24px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
   .price ul { list-style: none; margin-top: 20px; }
   .price li { font-size: 20px; color: var(--body); padding: 8px 0; border-top: 1px dashed var(--line); }
-  .price.hl li:first-child { color: var(--ink); font-weight: 650; }
   .bar-chart { display: flex; align-items: flex-end; gap: 56px; height: 470px; padding: 0 20px; border-bottom: 2px solid var(--line); }
   .bar-chart .b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
   .bar-chart .b .v { font-size: 34px; font-weight: 760; letter-spacing: -0.02em; margin-bottom: 14px; }
@@ -124,6 +123,15 @@
   .trust .card p { font-size: 21px; margin-top: 10px; }
   .trust .icon { margin-bottom: 18px; width: 56px; height: 56px; }
   .assump { display: inline-block; font-size: 15px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #b45309; background: #fef3c7; padding: 4px 12px; border-radius: 8px; }
+  /* Two-column product slides: a 960px screenshot and a side column of the same height. */
+  .duo { display: flex; gap: 56px; align-items: stretch; margin-top: 46px; }
+  .duo > .browser { flex: none; width: 960px; align-self: flex-start; }
+  .duo > .side { flex: 1; min-width: 0; height: 640px; display: flex; flex-direction: column; gap: 18px; }
+  .duo > .side > .callout { flex: 1; align-items: center; padding: 0; }
+  .duo > .side > .card { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .label-top { font-size: 19px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .avatar { flex: none; width: 120px; height: 120px; border-radius: 50%; background: var(--solid); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 44px; font-weight: 760; letter-spacing: -.02em; }
+  .legend span { display: inline-block; width: 16px; height: 16px; border-radius: 4px; margin-right: 12px; vertical-align: -1px; }
   .ch { padding: 24px 30px; }
   .ch h3 { font-size: 26px; }
   .ch ul.clean li { font-size: 20px; margin-top: 8px; padding-left: 34px; }
@@ -151,9 +159,9 @@
   <div class="kicker">The problem</div>
   <h2>Customers ask in WhatsApp and Telegram. Small businesses can’t keep up.</h2>
   <div class="row" style="margin-top:64px">
-    <div class="card grow"><div class="icon amber"><i data-icon="clock"></i></div><h3>Customers expect answers now, at any hour</h3><p>Buyers message about price, stock and delivery in the evening and at weekends. A reply hours later often means the sale is gone.</p></div>
-    <div class="card grow"><div class="icon rose"><i data-icon="users"></i></div><h3>Small teams can’t staff chats 24/7</h3><p>Owners answer the same questions and retype orders from chats by hand. Night and weekend shifts cost more than most small businesses earn from chat.</p></div>
-    <div class="card grow"><div class="icon sky"><i data-icon="bot"></i></div><h3>Scripted bots frustrate people</h3><p>Button trees can’t understand “15 red roses to my office tomorrow before noon, card payment”. Customers give up, or ask for a human anyway.</p></div>
+    <div class="card grow"><div class="icon"><i data-icon="clock"></i></div><h3>Customers expect answers now, at any hour</h3><p>Buyers message about price, stock and delivery in the evening and at weekends. A reply hours later often means the sale is gone.</p></div>
+    <div class="card grow"><div class="icon"><i data-icon="users"></i></div><h3>Small teams can’t staff chats 24/7</h3><p>Owners answer the same questions and retype orders from chats by hand. Night and weekend shifts cost more than most small businesses earn from chat.</p></div>
+    <div class="card grow"><div class="icon"><i data-icon="bot"></i></div><h3>Scripted bots frustrate people</h3><p>Button trees can’t understand “15 red roses to my office tomorrow before noon, card payment”. Customers give up, or ask for a human anyway.</p></div>
   </div>
   <div class="row" style="margin-top:36px;gap:0;background:#fff;border:1px solid var(--line);border-radius:28px;padding:36px 20px">
     <div class="grow" style="text-align:center;border-right:1px solid var(--line)"><div class="num accent">3B+</div><div class="label">monthly WhatsApp users (Apr 2025)¹</div></div>
@@ -174,7 +182,7 @@
         <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="zap"></i></div><div><h3>Real intelligence, not scripts</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">Google Gemini reads text, photos and voice notes, understands intent and replies naturally in the customer’s language.</p></div></div>
         <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="book"></i></div><div><h3>Trained on your business</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">It uses your instructions, business facts, documents (RAG) and examples of your best real replies, and copies your tone.</p></div></div>
         <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="shield"></i></div><div><h3>Always on, never reckless</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">It runs 24/7 and says “I’ll check” instead of guessing. Unsure chats get flagged and the owner gets an alert in WhatsApp or Telegram.</p></div></div>
-        <div class="row" style="gap:28px"><div class="icon" style="flex:none;margin:0"><i data-icon="cart"></i></div><div><h3>On Pro: an agent that does the work</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">Connected to your store, it places orders, cancels them and handles returns once the customer confirms, then tells them when the order ships.</p></div></div>
+        <div class="row" style="gap:28px"><div class="icon solid" style="flex:none;margin:0"><i data-icon="cart"></i></div><div><h3>On Pro: an agent that does the work</h3><p style="font-size:23px;line-height:1.5;color:var(--body);margin-top:8px">Connected to your store, it places orders, cancels them and handles returns once the customer confirms, then tells them when the order ships.</p></div></div>
       </div>
     </div>
     <div style="flex:none;width:360px" class="phone"><img src="assets/screens/mobile-thread.png" /></div>
@@ -199,13 +207,13 @@
 </section>
 
 <!-- 5. PRO: THE AI AGENT -->
-<section class="slide" style="padding-right:80px">
+<section class="slide">
   <div class="kicker">Pro plan · AI agent</div>
   <h2 style="font-size:58px">From answers to actions: the agent does the work</h2>
-  <div class="row" style="margin-top:46px;gap:52px;flex:1;align-items:flex-start">
-    <div style="flex:none;width:980px" class="browser"><div class="bar"><span></span><span></span><span></span><em>AI agent</em></div><img src="assets/screens/agent.png" /></div>
-    <div class="grow">
-      <div class="callout" style="padding-top:4px"><div class="n">1</div><div><h3>Connect your website</h3><p>Shopify, WooCommerce or any site through a small signed API. No store yet? Orders go to the owner to confirm.</p></div></div>
+  <div class="duo">
+    <div class="browser"><div class="bar"><span></span><span></span><span></span><em>AI agent</em></div><img src="assets/screens/agent.png" /></div>
+    <div class="side">
+      <div class="callout"><div class="n">1</div><div><h3>Connect your website</h3><p>Shopify, WooCommerce or any site through a small signed API. No store yet? Orders go to the owner to confirm.</p></div></div>
       <div class="callout"><div class="n">2</div><div><h3>The customer confirms</h3><p>Nothing changes in the store until the customer says yes in the chat. Refunds above the owner’s limit wait for approval.</p></div></div>
       <div class="callout"><div class="n">3</div><div><h3>Orders, cancellations, returns</h3><p>Each task has its own switch and money limit. Every action is logged on the dashboard.</p></div></div>
       <div class="callout"><div class="n">4</div><div><h3>Updates in the same chat</h3><p>Paid, shipped, delivered: the agent tells the customer in WhatsApp, Telegram or on the website.</p></div></div>
@@ -215,12 +223,12 @@
 </section>
 
 <!-- 6. PRODUCT: THREE CHANNELS -->
-<section class="slide" style="padding-right:80px">
+<section class="slide">
   <div class="kicker">Product · three channels</div>
   <h2 style="font-size:58px">WhatsApp, Telegram or your website: live in a minute</h2>
-  <div class="row" style="margin-top:46px;gap:52px;flex:1;align-items:flex-start">
-    <div style="flex:none;width:1000px" class="browser"><div class="bar"><span></span><span></span><span></span><em>Settings · Channels</em></div><img src="assets/screens/web-channel.png" /></div>
-    <div class="grow" style="display:flex;flex-direction:column;gap:18px">
+  <div class="duo">
+    <div class="browser"><div class="bar"><span></span><span></span><span></span><em>Settings · Channels</em></div><img src="assets/screens/web-channel.png" /></div>
+    <div class="side">
       <div class="card ch">
         <div class="row" style="gap:18px;align-items:center"><div class="chan wa"><i data-icon="whatsapp"></i></div><h3>WhatsApp: link a work number</h3></div>
         <ul class="clean" style="margin-top:6px"><li>One QR code (or an 8-character code) in Linked devices</li><li>Customers keep writing to the number they know</li></ul>
@@ -233,19 +241,18 @@
         <div class="row" style="gap:18px;align-items:center"><div class="chan web"><i data-icon="web"></i></div><h3>Website: one line of code</h3></div>
         <ul class="clean" style="margin-top:6px"><li>A chat button on any site: Tilda, WordPress, Shopify, Wix</li><li>A chat link and QR code for Instagram, Maps or the counter</li></ul>
       </div>
-      <p style="font-size:18px;line-height:1.45;color:var(--muted)">All channels share one brain, one inbox and one analytics view.</p>
     </div>
   </div>
-  <div class="chrome"><span>GetCons · real product screenshots, demo data</span><span>06</span></div>
+  <div class="chrome"><span>GetCons · all channels share one brain, one inbox and one analytics view</span><span>06</span></div>
 </section>
 
 <!-- 7. PRODUCT: DASHBOARD -->
-<section class="slide" style="padding-right:60px">
+<section class="slide">
   <div class="kicker">Product · built and working</div>
   <h2 style="font-size:58px">One dashboard to run your AI consultant</h2>
-  <div class="row" style="margin-top:46px;gap:56px;flex:1;align-items:flex-start">
-    <div style="flex:none;width:1080px" class="browser"><div class="bar"><span></span><span></span><span></span><em>Overview</em></div><img src="assets/screens/overview.png" /></div>
-    <div class="grow">
+  <div class="duo">
+    <div class="browser"><div class="bar"><span></span><span></span><span></span><em>Overview</em></div><img src="assets/screens/overview.png" /></div>
+    <div class="side">
       <div class="callout"><div class="n">1</div><div><h3>Live KPIs</h3><p>Customer messages, AI replies, automation rate, response time, and chats that need attention.</p></div></div>
       <div class="callout"><div class="n">2</div><div><h3>Knowledge gaps</h3><p>Every question the AI couldn’t answer, with one-click “Teach answer”.</p></div></div>
       <div class="callout"><div class="n">3</div><div><h3>Every channel at a glance</h3><p>WhatsApp number, Telegram bot and website chat, guided setup and an event log.</p></div></div>
@@ -305,7 +312,7 @@
     <div class="arrow">→</div>
     <div class="step"><small>3 · Personalise</small><b>Few-shot + memory</b><span>most similar owner examples, recent history and a rolling summary</span></div>
     <div class="arrow">→</div>
-    <div class="step" style="border-color:var(--brand);background:var(--brand-50)"><small>4 · Reason</small><b>Gemini + tools</b><span>structured reply with confidence and sources; on Pro, store tools by function calling</span></div>
+    <div class="step"><small>4 · Reason</small><b>Gemini + tools</b><span>structured reply with confidence and sources; on Pro, store tools by function calling</span></div>
     <div class="arrow">→</div>
     <div class="step"><small>5 · Decide</small><b>Answer · act · hand off</b><span>customer-confirmed actions, owner alerts, everything logged</span></div>
   </div>
@@ -326,13 +333,13 @@
 <section class="slide">
   <div class="kicker">Trust & reliability</div>
   <h2>Built to be trusted with real customers</h2>
-  <div class="trust" style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px">
+  <div class="trust" style="display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:26px;margin-top:48px;flex:1">
     <div class="card"><div class="icon"><i data-icon="file"></i></div><h3>Grounded answers</h3><p>Business facts come only from the owner’s data and the live store catalog. Each reply records the passages it cited.</p></div>
-    <div class="card"><div class="icon amber"><i data-icon="bell"></i></div><h3>Honest fallback & handoff</h3><p>When unsure, it promises to check. Complaints go to a human. The owner gets an alert in WhatsApp or Telegram with a link.</p></div>
-    <div class="card"><div class="icon green"><i data-icon="userCheck"></i></div><h3>Safe actions</h3><p>Orders, cancellations and refunds run only after the customer confirms in the chat. Big refunds wait for the owner. Every action is logged.</p></div>
-    <div class="card"><div class="icon sky"><i data-icon="shield"></i></div><h3>Strict data isolation</h3><p>Postgres row-level security, trigger-derived ownership, and no client writes. Each business sees only its own data.</p></div>
-    <div class="card"><div class="icon rose"><i data-icon="lock"></i></div><h3>Secrets protected</h3><p>Bot tokens, WhatsApp sessions and store keys are encrypted with AES-256-GCM. Store calls are signed and go to public HTTPS only.</p></div>
-    <div class="card"><div class="icon"><i data-icon="flask"></i></div><h3>Tested & resilient</h3><p>148 automated tests. Idempotent webhooks, retries with backoff, a backup model and provider, rate and daily limits.</p></div>
+    <div class="card"><div class="icon"><i data-icon="bell"></i></div><h3>Honest fallback & handoff</h3><p>When unsure, it promises to check. Complaints go to a human. The owner gets an alert in WhatsApp or Telegram with a link.</p></div>
+    <div class="card"><div class="icon"><i data-icon="userCheck"></i></div><h3>Safe actions</h3><p>Orders, cancellations and refunds run only after the customer confirms in the chat. Big refunds wait for the owner. Every action is logged.</p></div>
+    <div class="card"><div class="icon"><i data-icon="shield"></i></div><h3>Strict data isolation</h3><p>Postgres row-level security, trigger-derived ownership, and no client writes. Each business sees only its own data.</p></div>
+    <div class="card"><div class="icon"><i data-icon="lock"></i></div><h3>Secrets protected</h3><p>Bot tokens, WhatsApp sessions and store keys are encrypted with AES-256-GCM. Store calls are signed and go to public HTTPS only.</p></div>
+    <div class="card"><div class="icon"><i data-icon="flask"></i></div><h3>Tested & resilient</h3><p>149 automated tests. Idempotent webhooks, retries with backoff, a backup model and provider, rate and daily limits.</p></div>
   </div>
   <div class="chrome"><span>GetCons</span><span>11</span></div>
 </section>
@@ -345,12 +352,12 @@
     <div style="flex:none;width:640px;height:640px;position:relative">
       <div style="position:absolute;left:0;top:0;width:640px;height:640px;border-radius:50%;background:#e9e8e2;display:flex;justify-content:center;padding-top:56px"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em;color:var(--muted)">TAM</div><div style="font-size:54px;font-weight:760;letter-spacing:-.03em">$49.9B</div></div></div>
       <div style="position:absolute;left:100px;top:200px;width:440px;height:440px;border-radius:50%;background:var(--brand-200);display:flex;justify-content:center;padding-top:50px;color:var(--ink)"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em;color:var(--brand)">SAM</div><div style="font-size:50px;font-weight:760;letter-spacing:-.03em">≈$1B / yr</div></div></div>
-      <div style="position:absolute;left:190px;top:380px;width:260px;height:260px;border-radius:50%;background:var(--brand);display:flex;justify-content:center;align-items:center;color:#fff"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em">SOM</div><div style="font-size:46px;font-weight:760;letter-spacing:-.03em">$9.6M</div></div></div>
+      <div style="position:absolute;left:190px;top:380px;width:260px;height:260px;border-radius:50%;background:var(--brand);display:flex;justify-content:center;align-items:center;color:#fff"><div style="text-align:center"><div style="font-size:22px;font-weight:700;letter-spacing:.1em">SOM</div><div style="font-size:46px;font-weight:760;letter-spacing:-.03em">$240K</div></div></div>
     </div>
     <div class="grow" style="display:flex;flex-direction:column;gap:26px">
       <div class="card" style="padding:28px 34px"><h3>TAM: conversational AI, by 2030</h3><p>$13.2B in 2024 growing to $49.9B by 2030 (24.9% CAGR, MarketsandMarkets). Chatbots alone: $27.3B by 2030 (Grand View Research).</p></div>
       <div class="card" style="padding:28px 34px"><h3>SAM: SMBs selling in messengers <span class="assump">Assumption</span></h3><p>Conservatively ~2M small businesses that sell and support customers in WhatsApp and Telegram (CIS, Middle East, South Asia, Europe) × $40/month.</p></div>
-      <div class="card" style="padding:28px 34px"><h3>SOM: 20,000 paying businesses in 3 years <span class="assump">Target</span></h3><p>About 1% of SAM at a $40 average plan, giving $9.6M ARR.</p></div>
+      <div class="card" style="padding:28px 34px"><h3>SOM: 500 paying businesses in 3 years <span class="assump">Target</span></h3><p>A small, reachable share of SAM: 500 businesses at a $40 average plan is about $240K ARR.</p></div>
     </div>
   </div>
   <div class="footnote">WhatsApp: 3B+ monthly users (Meta, Apr 2025). Telegram: 1B+ MAU (Mar 2025), per Telegram/Durov. Market reports use different definitions; the figures are directional. SAM and SOM are company assumptions.</div>
@@ -419,8 +426,7 @@
     <div class="card"><div class="icon solid"><i data-icon="layout"></i></div><h3>Vertical templates</h3><p>Ready-made consultants for flower shops, salons, restaurants, courses and services. Each vertical gets its own landing page.</p></div>
     <div class="card"><div class="icon solid"><i data-icon="users"></i></div><h3>Agencies & freelancers</h3><p>20–30% revenue share and white-label on Pro. Agencies set up consultants and store agents for their clients.</p></div>
     <div class="card"><div class="icon solid"><i data-icon="message"></i></div><h3>Content & proof</h3><p>Case studies with automation rates and orders taken by the agent. A free “AI audit of your chat” lead magnet.</p></div>
-    <div class="card inv" style="background:var(--navy);color:#fff;border-color:var(--navy)"><h3 style="color:#fff">Funnel targets <span class="assump">Assumption</span></h3>
-      <ul class="clean" style="margin-top:6px"><li>Visitor → sign-up: 8%</li><li>Sign-up → live bot: 40%</li><li>Live bot → paid: 25%</li></ul></div>
+    <div class="card"><div class="icon solid"><i data-icon="activity"></i></div><h3>Funnel targets <span class="assump">Assumption</span></h3><p>Visitor → sign-up 8%. Sign-up → live consultant 40%. Live consultant → paid plan 25%.</p></div>
   </div>
   <div class="chrome"><span>GetCons</span><span>15</span></div>
 </section>
@@ -430,7 +436,7 @@
   <div class="kicker">Traction & roadmap</div>
   <h2>The product is built, agent included. Next: customers and integrations.</h2>
   <div class="timeline">
-    <div class="t done"><small>Now · Nov 2026</small><b>MVP + AI agent</b><span>Gemini consultants in WhatsApp, Telegram and website chat; the Pro agent for orders, cancellations and returns. 148 tests.</span></div>
+    <div class="t done"><small>Now · Nov 2026</small><b>MVP + AI agent</b><span>Gemini consultants in WhatsApp, Telegram and website chat; the Pro agent for orders, cancellations and returns. 149 tests.</span></div>
     <div class="t next"><small>Dec 2026 – Jan 2027</small><b>Closed beta</b><span>30–50 SMBs across 3 verticals. Validate pricing, automation rate and agent usage.</span></div>
     <div class="t"><small>Q1 2027</small><b>Public launch</b><span>Billing live, self-serve plans, partner program, case studies.</span></div>
     <div class="t"><small>Q2 2027</small><b>More channels</b><span>Instagram and the official WhatsApp Business API. CRM integrations (amoCRM, Bitrix24, HubSpot).</span></div>
@@ -447,15 +453,15 @@
 <!-- 17. FINANCIALS -->
 <section class="slide">
   <div class="kicker">Financial plan</div>
-  <h2>Path to $9.6M ARR in three years</h2>
+  <h2>500 paying businesses in three years</h2>
   <div class="row" style="margin-top:50px;gap:70px;flex:1">
     <div class="grow">
       <div class="bar-chart">
-        <div class="b"><div class="v">$0.6M</div><div class="col" style="height:6%"></div></div>
-        <div class="b"><div class="v">$2.7M</div><div class="col" style="height:28%"></div></div>
-        <div class="b"><div class="v">$9.6M</div><div class="col" style="height:100%"></div></div>
+        <div class="b"><div class="v">50</div><div class="col" style="height:10%"></div></div>
+        <div class="b"><div class="v">200</div><div class="col" style="height:40%"></div></div>
+        <div class="b"><div class="v">500</div><div class="col" style="height:100%"></div></div>
       </div>
-      <div class="bar-x"><div><b>Year 1</b>1,500 paying</div><div><b>Year 2</b>6,000 paying</div><div><b>Year 3</b>20,000 paying</div></div>
+      <div class="bar-x"><div><b>Year 1</b>≈ $21K ARR</div><div><b>Year 2</b>≈ $90K ARR</div><div><b>Year 3</b>≈ $240K ARR</div></div>
     </div>
     <div style="flex:none;width:560px;display:flex;flex-direction:column;gap:24px">
       <span class="assump" style="align-self:flex-start">Model assumptions, not results</span>
@@ -464,45 +470,40 @@
       <div class="card" style="padding:26px 32px"><div class="num" style="font-size:52px">&lt; 4%</div><div class="label">monthly logo churn target. CAC payback under 6 months.</div></div>
     </div>
   </div>
-  <div class="chrome"><span>GetCons · ARR at year end</span><span>17</span></div>
+  <div class="chrome"><span>GetCons · paying businesses at year end</span><span>17</span></div>
 </section>
 
 <!-- 18. TEAM & ASK -->
 <section class="slide">
   <div class="kicker">Team & the ask</div>
-  <div class="row" style="gap:70px;flex:1;margin-top:10px">
-    <div class="grow" style="display:flex;flex-direction:column">
-      <h2 style="font-size:56px">The team</h2>
-      <div class="card" style="margin-top:40px;padding:48px 52px;flex:1;display:flex;flex-direction:column;justify-content:center">
-        <div class="row" style="align-items:center;gap:34px">
-          <div style="width:140px;height:140px;border-radius:50%;background:var(--solid);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:52px;font-weight:760;letter-spacing:-.02em">YA</div>
-          <div><h3 style="font-size:44px;letter-spacing:-.02em">Yesylkhan Alikhan</h3><div class="pill" style="margin-top:16px;font-size:22px">CEO & Engineer</div></div>
-        </div>
-        <div style="margin-top:46px;font-size:19px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">Built GetCons end to end</div>
-        <ul class="clean" style="margin-top:6px">
-          <li><b>Product:</b> web dashboard, one-click WhatsApp, Telegram and website chat, English and Russian</li>
-          <li><b>AI:</b> Gemini pipeline with RAG, few-shot from real chats, memory, honest fallback and the Pro store agent</li>
-          <li><b>Platform:</b> Supabase with row-level data isolation, always-on messenger runtime, 148 automated tests</li>
-        </ul>
+  <h2>A founder-engineer, a working product and a small pre-seed round</h2>
+  <div class="row" style="gap:32px;flex:1;margin-top:48px;align-items:stretch">
+    <div class="card grow" style="padding:44px 48px;display:flex;flex-direction:column">
+      <div class="label-top">The team</div>
+      <div class="row" style="align-items:center;gap:30px;margin-top:22px">
+        <div class="avatar">YA</div>
+        <div><h3 style="font-size:40px;letter-spacing:-.02em">Yesylkhan Alikhan</h3><div class="pill" style="margin-top:14px;font-size:21px">CEO & Engineer</div></div>
       </div>
+      <ul class="clean" style="margin-top:26px">
+        <li><b>Product:</b> web dashboard, one-click WhatsApp, Telegram and website chat, English and Russian</li>
+        <li><b>AI:</b> Gemini pipeline with RAG, few-shot from real chats, memory, honest fallback and the Pro store agent</li>
+        <li><b>Platform:</b> Supabase with row-level data isolation, always-on messenger runtime, 149 automated tests</li>
+      </ul>
     </div>
-    <div class="inv" style="flex:none;width:760px;background:var(--navy);color:#fff;border-radius:34px;padding:52px 56px;position:relative;overflow:hidden">
-      <div style="position:relative">
-        <div style="font-size:22px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--brand-200)">Raising</div>
-        <div style="font-size:104px;font-weight:780;letter-spacing:-.05em;line-height:1.05;margin-top:8px">$500K</div>
-        <div style="font-size:26px;color:rgba(255,255,255,.7)">pre-seed · 18-month runway</div>
-        <div class="row" style="margin-top:40px;gap:40px;align-items:center">
-          <div style="flex:none;width:230px;height:230px;border-radius:50%;background:conic-gradient(#ae9feb 0 40%, #e7e2fa 40% 75%, #6d55d0 75% 90%, #f59e0b 90% 100%);display:flex;align-items:center;justify-content:center"><div style="width:130px;height:130px;border-radius:50%;background:var(--navy)"></div></div>
-          <div style="display:flex;flex-direction:column;gap:14px;font-size:22px">
-            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#ae9feb;margin-right:12px"></span>Product & AI · 40%</div>
-            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#e7e2fa;margin-right:12px"></span>Growth & marketing · 35%</div>
-            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#6d55d0;margin-right:12px"></span>Sales & partners · 15%</div>
-            <div><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#f59e0b;margin-right:12px"></span>Ops & infrastructure · 10%</div>
-          </div>
+    <div class="card grow" style="padding:44px 48px;display:flex;flex-direction:column">
+      <div class="label-top">Raising</div>
+      <div class="row" style="align-items:baseline;gap:18px;margin-top:16px"><div style="font-size:88px;font-weight:780;letter-spacing:-.05em;line-height:1">$100K</div><div style="font-size:24px;color:var(--muted)">pre-seed · 18-month runway</div></div>
+      <div class="row" style="margin-top:30px;gap:36px;align-items:center">
+        <div style="flex:none;width:180px;height:180px;border-radius:50%;background:conic-gradient(#5a40c4 0 40%, #8b77dd 40% 75%, #cfc5f4 75% 90%, #17181c 90% 100%);display:flex;align-items:center;justify-content:center"><div style="width:104px;height:104px;border-radius:50%;background:#fff"></div></div>
+        <div class="legend" style="display:flex;flex-direction:column;gap:12px;font-size:21px;color:var(--body)">
+          <div><span style="background:#5a40c4"></span>Product & AI · 40%</div>
+          <div><span style="background:#8b77dd"></span>Growth & marketing · 35%</div>
+          <div><span style="background:#cfc5f4"></span>Sales & partners · 15%</div>
+          <div><span style="background:#17181c"></span>Ops & infrastructure · 10%</div>
         </div>
-        <div style="margin-top:40px;font-size:22px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-200)">Milestones this round buys</div>
-        <ul class="clean" style="margin-top:4px"><li>2,000 paying businesses</li><li>$1M ARR run-rate</li><li>Instagram + CRM integrations live</li></ul>
       </div>
+      <div class="label-top" style="margin-top:30px">What this round buys</div>
+      <ul class="clean" style="margin-top:2px"><li>100+ paying businesses in the first 18 months</li><li>Instagram and CRM integrations</li><li>A clear path to 500 paying businesses in three years</li></ul>
     </div>
   </div>
   <div class="chrome"><span>GetCons</span><span>18</span></div>
@@ -533,6 +534,7 @@
     lock: '<rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
     bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
     cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+    activity: '<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
     refresh: '<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>',
     file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><circle cx="11.5" cy="14.5" r="2.5"/><path d="M13.3 16.3 15 18"/>',
     flask: '<path d="M9 3h6"/><path d="M10 3v6L4.5 19A1.5 1.5 0 0 0 6 21h12a1.5 1.5 0 0 0 1.5-2L14 9V3"/><path d="M7 15h10"/>',

@@ -154,7 +154,8 @@ export function RobotBackdrop({ meetText }: { meetText: string }) {
       try {
         scene = new RobotScene(canvasRef.current, {
           // More points on big screens: a finer, more detailed surface.
-          count: window.innerWidth < 768 ? 18000 : 68000,
+          // Phones take the coarse half-resolution grid stored at the start of the cloud file.
+          count: window.innerWidth < 768 ? 16900 : 68000,
           reducedMotion: reduced,
         });
       } catch {
