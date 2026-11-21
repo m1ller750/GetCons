@@ -98,7 +98,7 @@ describe('Pro plan agent', () => {
   });
 
   it('is a plain consultant on plans without the agent, and when the owner turns it off', async () => {
-    const free = await setup({ plan: 'business' });
+    const free = await setup({ plan: 'free' });
     await free.say('Do you have roses?');
     expect(free.llm.agentCalls).toHaveLength(0);
     expect(free.llm.generateCalls).toHaveLength(1);

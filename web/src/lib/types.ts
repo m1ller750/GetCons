@@ -282,7 +282,7 @@ export interface TranscriptPreview {
   totalPairs: number;
 }
 
-export type PlanId = 'free' | 'start' | 'business' | 'pro';
+export type PlanId = 'free' | 'pro';
 
 export interface Plan {
   id: PlanId;

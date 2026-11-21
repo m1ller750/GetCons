@@ -51,7 +51,7 @@ function notification(overrides: Record<string, string> = {}, secret = SECRET) {
   const params: Record<string, string> = {
     pg_order_id: PAYMENT_ID,
     pg_payment_id: '987654',
-    pg_amount: '49',
+    pg_amount: '129',
     pg_currency: 'USD',
     pg_result: '1',
     pg_testing_mode: '0',
@@ -62,7 +62,7 @@ function notification(overrides: Record<string, string> = {}, secret = SECRET) {
   return params;
 }
 
-const pending = { id: PAYMENT_ID, user_id: 'u1', plan: 'business', amount: '49.00', currency: 'USD', status: 'pending' };
+const pending = { id: PAYMENT_ID, user_id: 'u1', plan: 'pro', amount: '129.00', currency: 'USD', status: 'pending' };
 
 describe('Freedom Pay signatures', () => {
   it('matches the documented example: script;values sorted by key;secret', () => {
@@ -121,16 +121,14 @@ describe('payment notifications', () => {
   it('refuses checkout until the merchant keys are configured', async () => {
     const billing = new Billing({ admin: fakeAdmin(pending).admin, config: testConfig(), logger: silentLogger() });
     expect(billing.checkoutEnabled).toBe(false);
-    await expect(billing.createCheckout({ id: 'u1', email: null }, 'start', 'ru')).rejects.toMatchObject({ code: 'payments_unavailable' });
+    await expect(billing.createCheckout({ id: 'u1', email: null }, 'pro', 'ru')).rejects.toMatchObject({ code: 'payments_unavailable' });
   });
 });
 
 describe('plans', () => {
   it('match the pitch deck and fall back to Free when a period ends', () => {
-    expect([PLANS.free, PLANS.start, PLANS.business, PLANS.pro].map((p) => [p.priceUsd, p.maxConsultants, p.monthlyReplies])).toEqual([
+    expect([PLANS.free, PLANS.pro].map((p) => [p.priceUsd, p.maxConsultants, p.monthlyReplies])).toEqual([
       [0, 1, 100],
-      [19, 1, 1500],
-      [49, 3, 5000],
       [129, 10, 20000],
     ]);
     const future = new Date(Date.now() + 86_400_000).toISOString();

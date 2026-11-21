@@ -207,8 +207,6 @@ export const en = {
     soon: 'soon',
     plans: {
       free: { name: 'Free', features: ['AI consultant: answers questions 24/7', '1 consultant, 100 AI replies a month', 'WhatsApp, Telegram and website chat', '“Powered by GetCons” under replies'] },
-      start: { name: 'Start', features: ['1 consultant', '1,500 AI replies a month', 'Knowledge base: 50 documents, 500 examples', 'No GetCons signature'] },
-      business: { name: 'Business', features: ['3 consultants', '5,000 AI replies a month', 'Chat import and owner alerts', 'Analytics for 90 days'] },
       pro: { name: 'Pro', features: ['AI agent that does your business’s online work: orders, cancellations, returns and refunds, order status, customer updates', 'Works in your store: Shopify, WooCommerce or any site', 'Everything in Free, no GetCons signature, chat import and owner alerts', '10 consultants, 20,000 replies, priority support'] },
     },
     planError: 'This is not included in your plan. Open “Plan & billing” to upgrade.',

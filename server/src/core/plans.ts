@@ -1,9 +1,9 @@
 /**
- * Plans and what they unlock, as in the pitch deck (Business model slide). The server is the
+ * Plans and what they unlock: Free (an AI consultant) and Pro (an AI agent that does the online work). The server is the
  * only place these limits are enforced; the dashboard just displays them.
  */
 
-export const PLAN_IDS = ['free', 'start', 'business', 'pro'] as const;
+export const PLAN_IDS = ['free', 'pro'] as const;
 export type PlanId = (typeof PLAN_IDS)[number];
 export type PaidPlanId = Exclude<PlanId, 'free'>;
 
@@ -51,40 +51,6 @@ export const PLANS: Record<PlanId, Plan> = {
     whiteLabel: false,
     prioritySupport: false,
   },
-  start: {
-    id: 'start',
-    priceUsd: 19,
-    maxConsultants: 1,
-    monthlyReplies: 1_500,
-    maxDocumentsPerConsultant: 50,
-    maxExamplesPerConsultant: 500,
-    dailyUploads: 50,
-    chatImport: false,
-    ownerAlerts: false,
-    analyticsDays: 30,
-    poweredBy: false,
-    agent: false,
-    api: false,
-    whiteLabel: false,
-    prioritySupport: false,
-  },
-  business: {
-    id: 'business',
-    priceUsd: 49,
-    maxConsultants: 3,
-    monthlyReplies: 5_000,
-    maxDocumentsPerConsultant: 200,
-    maxExamplesPerConsultant: 2_000,
-    dailyUploads: 200,
-    chatImport: true,
-    ownerAlerts: true,
-    analyticsDays: 90,
-    poweredBy: false,
-    agent: false,
-    api: false,
-    whiteLabel: false,
-    prioritySupport: false,
-  },
   pro: {
     id: 'pro',
     priceUsd: 129,
@@ -120,11 +86,11 @@ export interface SubscriptionRow {
 export function effectivePlan(sub: Pick<SubscriptionRow, 'plan' | 'current_period_end'> | null, now = new Date()): Plan {
   if (!sub || sub.plan === 'free') return PLANS.free;
   if (!sub.current_period_end || new Date(sub.current_period_end) <= now) return PLANS.free;
-  return PLANS[sub.plan] ?? PLANS.free;
+  return PLANS[sub.plan as PlanId] ?? PLANS.free;
 }
 
 export function isPaidPlan(id: string): id is PaidPlanId {
-  return id === 'start' || id === 'business' || id === 'pro';
+  return id === 'pro';
 }
 
 /** First moment of the current calendar month (UTC): monthly reply quotas reset then. */

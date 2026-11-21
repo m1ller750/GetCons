@@ -7,7 +7,7 @@ import { authed, type AppDeps } from '../deps.js';
 import { parse } from '../middleware.js';
 
 const checkoutSchema = z.object({
-  plan: z.enum(['start', 'business', 'pro']),
+  plan: z.enum(['pro']),
   language: z.enum(['ru', 'en']).default('ru'),
 });
 

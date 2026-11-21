@@ -258,7 +258,7 @@ describe('plans and payments', () => {
   });
 
   it('lets clients read only their own plan and payments, never write or activate them', async () => {
-    const pay = await one<{ id: string }>(`insert into payments (user_id, plan, amount, currency) values ($1, 'business', 49, 'USD') returning id`, [B]);
+    const pay = await one<{ id: string }>(`insert into payments (user_id, plan, amount, currency) values ($1, 'pro', 129, 'USD') returning id`, [B]);
     await as('authenticated', A, async () => {
       expect((await db.query(`select * from payments`)).rows).toHaveLength(0);
       await expect(db.query(`insert into subscriptions (user_id, plan, current_period_end) values ($1, 'pro', now() + interval '1 year')`, [A])).rejects.toThrow(
@@ -277,16 +277,16 @@ describe('plans and payments', () => {
   });
 
   it('activates a paid plan exactly once and extends it when the same plan is paid again', async () => {
-    const pay = await one<{ id: string }>(`insert into payments (user_id, plan, amount, currency) values ($1, 'business', 49, 'USD') returning id`, [A]);
+    const pay = await one<{ id: string }>(`insert into payments (user_id, plan, amount, currency) values ($1, 'pro', 129, 'USD') returning id`, [A]);
     const first = await one<{ plan: string; current_period_end: string }>(`select * from activate_payment($1, 'fp-1')`, [pay.id]);
-    expect(first.plan).toBe('business');
+    expect(first.plan).toBe('pro');
     // Freedom Pay retries notifications: a repeat must not add more days.
     const again = await one<{ current_period_end: string }>(`select * from activate_payment($1, 'fp-1')`, [pay.id]);
     expect(new Date(again.current_period_end).getTime()).toBe(new Date(first.current_period_end).getTime());
     expect((await one<{ status: string }>(`select status from payments where id = $1`, [pay.id])).status).toBe('paid');
-    expect((await one<{ p: string }>(`select effective_plan($1) as p`, [A])).p).toBe('business');
+    expect((await one<{ p: string }>(`select effective_plan($1) as p`, [A])).p).toBe('pro');
 
-    const renew = await one<{ id: string }>(`insert into payments (user_id, plan, amount, currency) values ($1, 'business', 49, 'USD') returning id`, [A]);
+    const renew = await one<{ id: string }>(`insert into payments (user_id, plan, amount, currency) values ($1, 'pro', 129, 'USD') returning id`, [A]);
     const extended = await one<{ current_period_end: string }>(`select * from activate_payment($1, 'fp-2')`, [renew.id]);
     const days = (new Date(extended.current_period_end).getTime() - new Date(first.current_period_end).getTime()) / 86_400_000;
     expect(Math.round(days)).toBe(30);
