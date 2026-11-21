@@ -9,7 +9,7 @@ import { fmt, useI18n } from '../lib/i18n';
 import { keys, useBilling } from '../lib/queries';
 import type { BillingOverview, PlanId } from '../lib/types';
 
-const ORDER: PlanId[] = ['free', 'start', 'business', 'pro'];
+const ORDER: PlanId[] = ['free', 'pro'];
 
 /** Plans from the pitch deck, current usage and card checkout (Freedom Pay's hosted page). */
 export function BillingPage() {
@@ -66,13 +66,13 @@ export function BillingPage() {
 
       <CurrentPlan data={data} date={date} />
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4 [&>*]:min-w-0">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 [&>*]:min-w-0">
         {ORDER.map((id) => {
           const plan = data.plans.find((p) => p.id === id);
           if (!plan) return null;
           const copy = t.billing.plans[id];
           const current = data.plan === id;
-          const popular = id === 'business';
+          const popular = id === 'pro';
           return (
             <Card key={id} className={cx('flex flex-col p-5', popular && 'ring-2 ring-brand-500')}>
               <div className="flex items-center justify-between gap-2">
