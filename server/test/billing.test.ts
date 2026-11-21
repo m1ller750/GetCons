@@ -51,7 +51,7 @@ function notification(overrides: Record<string, string> = {}, secret = SECRET) {
   const params: Record<string, string> = {
     pg_order_id: PAYMENT_ID,
     pg_payment_id: '987654',
-    pg_amount: '129',
+    pg_amount: '25',
     pg_currency: 'USD',
     pg_result: '1',
     pg_testing_mode: '0',
@@ -62,7 +62,7 @@ function notification(overrides: Record<string, string> = {}, secret = SECRET) {
   return params;
 }
 
-const pending = { id: PAYMENT_ID, user_id: 'u1', plan: 'pro', amount: '129.00', currency: 'USD', status: 'pending' };
+const pending = { id: PAYMENT_ID, user_id: 'u1', plan: 'pro', amount: '25.00', currency: 'USD', status: 'pending' };
 
 describe('Freedom Pay signatures', () => {
   it('matches the documented example: script;values sorted by key;secret', () => {
@@ -127,9 +127,10 @@ describe('payment notifications', () => {
 
 describe('plans', () => {
   it('match the pitch deck and fall back to Free when a period ends', () => {
-    expect([PLANS.free, PLANS.pro].map((p) => [p.priceUsd, p.maxConsultants, p.monthlyReplies])).toEqual([
+    expect([PLANS.free, PLANS.pro, PLANS.max].map((p) => [p.priceUsd, p.maxConsultants, p.monthlyReplies])).toEqual([
       [0, 1, 100],
-      [129, 10, 20000],
+      [25, 10, 3000],
+      [150, 10, 1_000_000_000],
     ]);
     const future = new Date(Date.now() + 86_400_000).toISOString();
     const past = new Date(Date.now() - 1000).toISOString();

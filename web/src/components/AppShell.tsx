@@ -123,7 +123,7 @@ function Sidebar({ onNavigate, onCreate }: { onNavigate?: () => void; onCreate: 
     { to: `${base}/conversations`, label: t.nav.conversations, icon: MessagesSquare },
     { to: `${base}/knowledge`, label: t.nav.knowledge, icon: BookOpen },
     { to: `${base}/training`, label: t.nav.training, icon: GraduationCap },
-    { to: `${base}/agent`, label: t.nav.agent, icon: Workflow, badge: plan === 'pro' ? null : 'Pro' },
+    { to: `${base}/agent`, label: t.nav.agent, icon: Workflow, badge: plan === 'pro' || plan === 'max' ? null : 'Pro' },
     { to: `${base}/playground`, label: t.nav.playground, icon: FlaskConical },
     { to: `${base}/settings`, label: t.nav.settings, icon: Settings },
   ];

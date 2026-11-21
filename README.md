@@ -8,8 +8,8 @@ A business creates its own AI consultant in one click and puts it in **WhatsApp,
 
 ## Plans
 
-- **Free** — an AI consultant that answers customers 24/7 in WhatsApp, Telegram and the website chat.
-- **Pro** — an AI agent that does the business's online work: it places orders, cancels them, handles returns and refunds, tells customers their order status and messages them when an order changes, right in the same chat. It works in the business's store (Shopify, WooCommerce or any site through a signed API); every action is confirmed by the customer, and refunds above the owner's limit wait for the owner.
+- **Free ($0)** — an AI consultant that answers customers 24/7 in WhatsApp, Telegram and the website chat.
+- **Pro ($25/month)** — an AI agent that does the business's online work: it places orders, cancels them, handles returns and refunds, tells customers their order status and messages them when an order changes, right in the same chat. It works in the business's store (Shopify, WooCommerce or any site through a signed API); every action is confirmed by the customer, and refunds above the owner's limit wait for the owner.
 
 ## Features
 

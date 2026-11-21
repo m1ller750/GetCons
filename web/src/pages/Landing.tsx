@@ -95,7 +95,8 @@ const MORE_ICONS = [LifeBuoy, BarChart3, LockKeyhole];
 /** Prices from the pitch deck (USD per month); features come from the Billing copy. */
 const PRICING = [
   { id: 'free', price: 0 },
-  { id: 'pro', price: 129 },
+  { id: 'pro', price: 25 },
+  { id: 'max', price: 150 },
 ] as const;
 
 export function LandingPage() {
@@ -375,7 +376,7 @@ export function LandingPage() {
             <Kicker>{l.pricingKicker}</Kicker>
             <h2 className={`mx-auto mt-5 max-w-3xl ${h2}`}>{l.pricingTitle}</h2>
             <p className={`mx-auto mt-6 max-w-2xl ${body}`}>{l.pricingText}</p>
-            <div className="mt-12 grid gap-4 text-left mx-auto max-w-4xl sm:grid-cols-2">
+            <div className="mt-12 grid gap-4 text-left mx-auto max-w-6xl sm:grid-cols-2 lg:grid-cols-3">
               {PRICING.map(({ id, price }) => {
                 const plan = t.billing.plans[id];
                 const agent = id === 'pro';

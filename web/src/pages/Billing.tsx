@@ -9,7 +9,9 @@ import { fmt, useI18n } from '../lib/i18n';
 import { keys, useBilling } from '../lib/queries';
 import type { BillingOverview, PlanId } from '../lib/types';
 
-const ORDER: PlanId[] = ['free', 'pro'];
+const ORDER: PlanId[] = ['free', 'pro', 'max'];
+/** Max is stored with a huge reply limit; the page shows it as unlimited. */
+const UNLIMITED = 1_000_000_000;
 
 /** Plans from the pitch deck, current usage and card checkout (Freedom Pay's hosted page). */
 export function BillingPage() {
@@ -66,7 +68,7 @@ export function BillingPage() {
 
       <CurrentPlan data={data} date={date} />
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 [&>*]:min-w-0">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
         {ORDER.map((id) => {
           const plan = data.plans.find((p) => p.id === id);
           if (!plan) return null;
@@ -150,7 +152,8 @@ export function BillingPage() {
 function CurrentPlan({ data, date }: { data: BillingOverview; date: (iso: string) => string }) {
   const { t, locale } = useI18n();
   const { replies, repliesLimit } = data.usage;
-  const share = Math.min(100, Math.round((replies / Math.max(1, repliesLimit)) * 100));
+  const unlimited = repliesLimit >= UNLIMITED;
+  const share = unlimited ? 0 : Math.min(100, Math.round((replies / Math.max(1, repliesLimit)) * 100));
   return (
     <Card className="grid gap-5 p-5 sm:grid-cols-2">
       <div>
@@ -164,7 +167,7 @@ function CurrentPlan({ data, date }: { data: BillingOverview; date: (iso: string
         <div className="flex items-baseline justify-between gap-2 text-sm">
           <span className="text-slate-500">{t.billing.usage}</span>
           <span className="font-medium text-slate-900">
-            {fmt(t.billing.usageOf, { used: replies.toLocaleString(locale), limit: repliesLimit.toLocaleString(locale) })}
+            {unlimited ? fmt(t.billing.usageUnlimited, { used: replies.toLocaleString(locale) }) : fmt(t.billing.usageOf, { used: replies.toLocaleString(locale), limit: repliesLimit.toLocaleString(locale) })}
           </span>
         </div>
         <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-slate-100" role="progressbar" aria-valuenow={share} aria-valuemin={0} aria-valuemax={100}>

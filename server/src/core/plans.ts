@@ -1,9 +1,12 @@
 /**
- * Plans and what they unlock: Free (an AI consultant) and Pro (an AI agent that does the online work). The server is the
+ * Plans and what they unlock: Free (an AI consultant), Pro (an AI agent that does the online work)
+ * and Max (Pro without a monthly reply limit). The server is the
  * only place these limits are enforced; the dashboard just displays them.
  */
 
-export const PLAN_IDS = ['free', 'pro'] as const;
+export const PLAN_IDS = ['free', 'pro', 'max'] as const;
+/** Max has no monthly reply limit; stored as a number so limits stay plain arithmetic. */
+export const UNLIMITED = 1_000_000_000;
 export type PlanId = (typeof PLAN_IDS)[number];
 export type PaidPlanId = Exclude<PlanId, 'free'>;
 
@@ -53,9 +56,26 @@ export const PLANS: Record<PlanId, Plan> = {
   },
   pro: {
     id: 'pro',
-    priceUsd: 129,
+    priceUsd: 25,
     maxConsultants: 10,
-    monthlyReplies: 20_000,
+    monthlyReplies: 3_000,
+    maxDocumentsPerConsultant: 200,
+    maxExamplesPerConsultant: 2_000,
+    dailyUploads: 200,
+    chatImport: true,
+    ownerAlerts: true,
+    analyticsDays: 90,
+    poweredBy: false,
+    agent: true,
+    api: true,
+    whiteLabel: true,
+    prioritySupport: true,
+  },
+  max: {
+    id: 'max',
+    priceUsd: 150,
+    maxConsultants: 10,
+    monthlyReplies: UNLIMITED,
     maxDocumentsPerConsultant: 200,
     maxExamplesPerConsultant: 2_000,
     dailyUploads: 200,
@@ -90,7 +110,7 @@ export function effectivePlan(sub: Pick<SubscriptionRow, 'plan' | 'current_perio
 }
 
 export function isPaidPlan(id: string): id is PaidPlanId {
-  return id === 'pro';
+  return id === 'pro' || id === 'max';
 }
 
 /** First moment of the current calendar month (UTC): monthly reply quotas reset then. */
